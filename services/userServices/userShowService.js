@@ -1,4 +1,4 @@
-const usersModel = require('../models/usersModel.js')
+const usersModel = require('../../models/usersModel.js')
 
 const userShowService = async (userID) => {
     try {

@@ -8,7 +8,7 @@ const commentsModel = require('../models/commentsModel.js')
 //ROUTES
 ///////CREATE USER///////
 router.post('/create', async (req, res) => {
-    const { userCreateService } = require('../services/userCreateService.js')
+    const { userCreateService } = require('../services/userServices/userCreateService.js')
     const userInput = req.body //users name email password
 
     try {
@@ -23,7 +23,7 @@ router.post('/create', async (req, res) => {
 
 //login user
 router.post('/login', async (req, res) => {
-    const {userLoginService} = require('../services/userLoginService.js')
+    const {userLoginService} = require('../services/userServices/userLoginService.js')
     const userInput = req.body //email & password
 
     try{
@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
 //logout user
 //todo requires sessions to make sense.
 router.post('/logout', async (req, res) => {
-    const {userLogoutService} = require('../services/userLogoutService.js')
+    const {userLogoutService} = require('../services/userServices/userLogoutService.js')
     const userInput = req.body //this will change to sessions w/ redis
 
     try{
@@ -57,7 +57,7 @@ router.post('/logout', async (req, res) => {
 //user id
 router.get('/:id', async (req, res) => {
     //finds specific id and shows it to user
-    const {userShowService} = require('../services/userShowService.js')
+    const {userShowService} = require('../services/userServices/userShowService.js')
     const userID = req.params.id
 
     try {
@@ -73,7 +73,7 @@ router.get('/:id', async (req, res) => {
 //UPDATE
 //user id
 router.put('/:id', async (req, res) => {
-    const {userUpdateService} = require('../services/userUpdateService.js')
+    const {userUpdateService} = require('../services/userServices/userUpdateService.js')
     const userIDAndInfo = req.body.id //users name email password & id
 
     try {
@@ -88,9 +88,10 @@ router.put('/:id', async (req, res) => {
 
 //DELETE
 //user ID
-//Still working out some loose ends here. Returns error, reference the userDeleteService for details.
-/*router.delete('/:id', async (req, res) => {
-    const {userDeleteService} = require('../services/userDeleteService.js')
+//Still working out some loose ends here. Returns error yet deletse user still. Not sure how to send the correct
+// json response after user is deleted. Deletion logic is in services/userDeleteServices.js
+router.delete('/:id', async (req, res) => {
+    const {userDeleteService} = require('../services/userServices/userDeleteService.js')
     const userID = req.params.id //users ID
 
     try {
@@ -102,5 +103,5 @@ router.put('/:id', async (req, res) => {
             error: error})
     }
 })
-*/
+
 module.exports = router

@@ -1,14 +1,15 @@
-const usersModel = require('../models/usersModel')
-const forumsModel = require("../models/forumsModel");
-const commentsModel = require("../models/commentsModel");
-//START OF MORNING: Gotta fix this route. It deletes the user however returns an error via controller each time.
+const usersModel = require('../../models/usersModel')
+const forumsModel = require("../../models/forumsModel")
+const commentsModel = require("../../models/commentsModel")
+
+//It deletes the user however returns an error via controller each time.
 // While successful it has nothing to return.
 
 //Something to note is that the user may-be deleted however all submissions of the user will be rendered null until
-// I make an account for The Kitchen Repear that we will apply all deleted accounts to that accounts handle.
+// I make an account for The Kitchen Death God that we will apply all deleted accounts to that accounts handle.
 const userDeleteService = async (userID) => {
     try{
-        await usersModel.findByIdAndRemove(
+        const deleteUser = await usersModel.findByIdAndRemove(
             userID,
             (error, _deletedUser) => {
                 if (error) {
@@ -31,6 +32,7 @@ const userDeleteService = async (userID) => {
                     })
                 }
             })
+        return deleteUser
     } catch(error) {
         throw Error('Error while deleting user. Location: userDeleteService')
     }

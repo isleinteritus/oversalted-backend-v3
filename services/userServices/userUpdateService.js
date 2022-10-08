@@ -1,4 +1,4 @@
-const usersModel = require('../models/usersModel')
+const usersModel = require('../../models/usersModel')
 
 const userUpdateService = async (userIDAndInfo) => {
     try {

@@ -7,7 +7,10 @@ TODO
 3) Will need to do the same with services. 3 & 4 are to be done at the same time. 
 4) Add sessions through redis
 implment nanoid for disaposable session ID names instead of database indentifierers 
-5) figure out how to abstract the index services to apply to: Users, Comments, Forums, and Tags 
+5) fix userDeleteRoute. Reference comments. In short user is deleted however json is not returned and userController 
+   delete route returns a silent error.
+5) figure out how to abstract the index services to apply to: Users, Comments, Forums, and Tags
+6) reduce services logic into smaller functions. EX: mongoDbServices
 6) Figure out a way to parse only needed data through json. Refer to scratch pad. Right now it is a bulk send off. Or just make life fun for frontend parsing json. 
 7) when user deletes acct, change all users names on submitted items to an admin called The Kitchen Reaper. A cute 
    way to 
