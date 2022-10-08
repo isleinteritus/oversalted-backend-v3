@@ -1,123 +1,106 @@
 const express = require('express')
 const router = express.Router()
-const usersModel = require('../models/usersModel.js')
+const {sendStandardResponse, sendDeletedResponse} = require('../utils/jsonResponseHelpers')
 const forumsModel = require('../models/forumsModel.js')
 const commentsModel = require('../models/commentsModel.js')
 
+
 //ROUTES
 ///////CREATE USER///////
-router.post('/register', (req, res) => {
-		usersModel.create(
-			req.body
-			, (error, createdUser) =>{
-				if (error) {
-					console.error(error)
-				} else {
-					res.json(createdUser)
-				}
-			})
+router.post('/create', async (req, res) => {
+    const { userCreateService } = require('../services/userCreateService.js')
+    const userInput = req.body //users name email password
+
+    try {
+        const createdUser = await userCreateService (userInput)
+        
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", createdUser))
+    } catch(error) {
+        res.json({error:"usercontroller register route",
+            error: error})
+    }
 })
 
-router.post('/login', (req, res) => {
-		usersModel.findOne(
-			req.body,
-			(error, foundUser) =>{
-				if (error) {
-					console.error(error)
-				} else {
-					res.json(foundUser)
-				}
-			})
+//login user
+router.post('/login', async (req, res) => {
+    const {userLoginService} = require('../services/userLoginService.js')
+    const userInput = req.body //email & password
+
+    try{
+        const userLoggedIn = await userLoginService(userInput)
+
+        res.json(sendStandardResponse(200, "You're logged in!", userLoggedIn))
+    } catch(error) {
+        res.json({error:"usercontroller login route",
+            error: error})
+    }
 })
 
+//logout user
 //todo requires sessions to make sense.
-router.post('/logout', (req, res) => {
-	const userInfo = req.body
-	usersModel.findOne(
-		userInfo,
-		(error, foundUser) =>{
-			if (error) {
-				console.error(error)
-			}  else {
+router.post('/logout', async (req, res) => {
+    const {userLogoutService} = require('../services/userLogoutService.js')
+    const userInput = req.body //this will change to sessions w/ redis
 
-			}
-		})
-	res.json({message : "you've been logged out"})
+    try{
+        const userLoggedOut = await userLogoutService(userInput)
 
-})
+        res.json(sendStandardResponse(200, "Bye bye forever", userLoggedOut))
+    } catch(error) {
+        res.json({error:"usercontroller logout route",
+            error: error})
+    }
 
-///////INDEX///////
-router.get('/index', (req, res)=> {
-	usersModel.find({
-	}, (error, foundUsers) => {
-		if (error) {
-			console.error(error)
-		} else {
-			res.json(foundUsers)
-		}
-	})
 })
 
 ///////SHOW///////
 //user id
-router.get('/:id', (req, res) => {
-	//finds specific id and shows it to user
-	usersModel.findById(
-		req.params.id,
-		(error, foundUser) => {
-			if (error) {
-				console.error(error)
-			} else {
-				res.json(foundUser)
-			}
-		})
+router.get('/:id', async (req, res) => {
+    //finds specific id and shows it to user
+    const {userShowService} = require('../services/userShowService.js')
+    const userID = req.params.id
+
+    try {
+        const foundUser = await userShowService(userID)
+
+        res.json(sendStandardResponse(200, "User has been located", foundUser))
+    } catch(error) {
+        res.json({message:"usercontroller show route",
+            error: error})
+    }
 })
 
 //UPDATE
 //user id
-router.put('/:id', (req, res) => {
-	const userInfo = req.body.id
-	usersModel.findByIdAndUpdate(
-			req.body.id
-			, (error, _updatedUser) => {
-				if (error) {
-					console.error(error)
-				} else {
-					res.json({message: "updated user"})
-				}
-			})
+router.put('/:id', async (req, res) => {
+    const {userUpdateService} = require('../services/userUpdateService.js')
+    const userIDAndInfo = req.body.id //users name email password & id
+
+    try {
+        const updatedUser = await userUpdateService(userIDAndInfo)
+
+        res.json(sendStandardResponse(200, "User has been updated", updatedUser))
+    } catch (error) {
+        res.json({message:"usercontroller update route",
+            error: error})
+    }
 })
 
 //DELETE
 //user ID
-router.delete('/:id', (req, res) => {
-	usersModel.findByIdAndRemove(
-		req.params.id,
-		(error, _deletedUser) => {
-			if (error) {
-				console.error(error)
-			} else {
+//Still working out some loose ends here. Returns error, reference the userDeleteService for details.
+/*router.delete('/:id', async (req, res) => {
+    const {userDeleteService} = require('../services/userDeleteService.js')
+    const userID = req.params.id //users ID
 
-				forumsModel.updateMany({}, {
-					forumOwner: null
-				}, (error, _deletedForum) => {
-					if (error) {
-						console.error(error)
-					}
-				})
-				//TODO this one needs to be fixed
-				commentsModel.updateMany({}, {
-					//.TODO PLACEHOLDER TEXT FOR FUTURE USAGE.
-					commentOwner: null
-				}, (error, _deletedComment) => {
-					if (error) {
-						console.error(error)
-					}
-				})
+    try {
+        const deletedUser = await userDeleteService(userID)
 
-				res.json({message: "user committed not alive"})
-			}
-		})
+        res.json(sendStandardResponse(200, "The Kitchen Death-God takes another", deletedUser))
+    }catch (error) {
+        res.json({message:"usercontroller deleted route",
+            error: error})
+    }
 })
-
+*/
 module.exports = router

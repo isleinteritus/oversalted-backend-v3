@@ -7,7 +7,7 @@ const forumsModel = require('../models/forumsModel.js')
 //ROUTES
 ///////CREATE///////
 router.post ('/create', (req, res) => {
-        const tagInfo = req.body
+    const tagInfo = req.body
         tagsModel.create(tagInfo
             , (error, createdTag) =>{
             if (error) {
@@ -65,7 +65,6 @@ router.delete('/:id', (req, res) => {
         if (error) {
             console.error(error)
         } else {
-
             forumsModel.updateMany({}, {
                 $pull: {
                     parentTags: {
