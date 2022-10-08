@@ -9,7 +9,7 @@ const commentsModel = require("../../models/commentsModel")
 // I make an account for The Kitchen Death God that we will apply all deleted accounts to that accounts handle.
 const userDeleteService = async (userID) => {
     try{
-        const deleteUser = await usersModel.findByIdAndRemove(
+         await usersModel.findByIdAndRemove(
             userID,
             (error, _deletedUser) => {
                 if (error) {
@@ -30,9 +30,10 @@ const userDeleteService = async (userID) => {
                             console.error(error)
                         }
                     })
+                    return null //some json status somehow.
                 }
             })
-        return deleteUser
+
     } catch(error) {
         throw Error('Error while deleting user. Location: userDeleteService')
     }
