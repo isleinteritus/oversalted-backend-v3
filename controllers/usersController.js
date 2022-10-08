@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const {sendStandardResponse, sendDeletedResponse} = require('../utils/jsonResponseHelpers')
-const forumsModel = require('../models/forumsModel.js')
-const commentsModel = require('../models/commentsModel.js')
 
 
 //ROUTES
