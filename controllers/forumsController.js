@@ -4,61 +4,79 @@ const usersModel = require('../models/usersModel.js')
 const forumsModel = require('../models/forumsModel.js')
 const commentsModel = require('../models/commentsModel.js')
 const tagsModel = require('../models/tagsModel.js')
+const {userShowService} = require("../services/userServices/userShowService");
+const {sendStandardResponse} = require("../utils/jsonResponseHelpers");
 
 
 
 //ROUTES
 ///////CREATE///////
 router.post ('/create', (req, res) => {
-	const forumInfo = req.body
-		forumsModel.create(forumInfo, (error, createdForum) => {
-			if (error) {
-				console.error(error)
-			} else {
-				usersModel.findByIdAndUpdate(createdForum.forumOwner, {
-					$push: {
-						userForums: createdForum.id
-					}
-				}, (error, _updatedUserForum) => {
-					if (error) {
-						console.error(error)
-					}
-				})
-
-				tagsModel.updateMany({
-					_id: {
-						$in: createdForum.parentTags
-					}
-				}, {
-					$push: {
-						taggedForums: {
-							_id: createdForum._id
-						}
-					}
-				}, (error, _updatedTags) => {
-					if (error) {
-						console.error(error)
-					}
-				})
-				//$each to push each tag into an array
-				res.json(createdForum)
-			}
-		})
+    const {forumCreateService} = require('../services/userforumServices/forumCreateService.js')
+	// const forumInfo = req.body
+	// 	forumsModel.create(forumInfo, (error, createdForum) => {
+	// 		if (error) {
+	// 			console.error(error)
+	// 		} else {
+	// 			usersModel.findByIdAndUpdate(createdForum.forumOwner, {
+	// 				$push: {
+	// 					userForums: createdForum.id
+	// 				}
+	// 			}, (error, _updatedUserForum) => {
+	// 				if (error) {
+	// 					console.error(error)
+	// 				}
+	// 			})
+    //
+	// 			tagsModel.updateMany({
+	// 				_id: {
+	// 					$in: createdForum.parentTags
+	// 				}
+	// 			}, {
+	// 				$push: {
+	// 					taggedForums: {
+	// 						_id: createdForum._id
+	// 					}
+	// 				}
+	// 			}, (error, _updatedTags) => {
+	// 				if (error) {
+	// 					console.error(error)
+	// 				}
+	// 			})
+	// 			//$each to push each tag into an array
+	// 			res.json(createdForum)
+	// 		}
+	// 	})
 })
 ///////INDEX///////
 router.get('/index', (req, res)=> {
-	forumsModel.find((error, foundForums) => {
-		if (error) {
-			console.error(error)
-		} else {
-			res.json(foundForums)
-		}
-	})
+    const {forumIndexService} = require('../services/userforumServices/forumIndexService.js')
+    //
+	// forumsModel.find((error, foundForums) => {
+	// 	if (error) {
+	// 		console.error(error)
+	// 	} else {
+	// 		res.json(foundForums)
+	// 	}
+	// })
 })
 
 ///////SHOW///////
 //forum id
 router.get('/:id', (req, res) => {
+//finds specific id and shows it to user
+    const {forumShowService} = require('../services/userforumServices/forumShowService.js') //TODO make route
+    const forumID = req.params.id
+
+    try {
+        const foundForum = await forumShowService(forumID)
+
+        res.json(sendStandardResponse(200, "User has been located", foundForum))
+    } catch(error) {
+        res.json({message:"forumcontroller show route",
+            error: error})
+    }
+    /*
     const forumInfo = req.params.id
     forumsModel.findById(
         forumInfo
@@ -69,6 +87,8 @@ router.get('/:id', (req, res) => {
                 res.json(foundForum)
             }
         })
+
+     */
 })
 
 //UPDATE
