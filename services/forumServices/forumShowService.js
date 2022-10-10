@@ -1,9 +1,16 @@
-const forumsModel = require('../../models/forumsModel')
+const forumsModel = require('../../models/forumsModel.js')
 
-const forumShowService = async (userID) => {
+const forumShowService = async (forumId) => {
     try {
-        const foundForum = await forumsModel.findById(userID)
-        return foundforum
+        return await forumsModel.findById(
+            forumId,
+            (error, foundForum) => {
+                if (error) {
+                    console.error(error)
+                } else {
+                    return foundForum
+                }
+            })
     } catch (error) {
         throw Error('Error while fetching user. Location: forumCreateService')
     }
