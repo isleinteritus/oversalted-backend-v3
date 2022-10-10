@@ -2,8 +2,7 @@ const usersModel = require('../../models/usersModel.js')
 
 const userCreateService = async (userInput) => {
     try {
-        const createdUser = await usersModel.create(userInput)
-        return createdUser
+        return await usersModel.create(userInput)
     } catch (error) {
         throw Error('Error while creating user. Location: userCreateService')
     }

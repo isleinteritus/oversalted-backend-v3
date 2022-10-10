@@ -2,8 +2,7 @@ const usersModel = require('../../models/usersModel.js')
 
 const userShowService = async (userID) => {
     try {
-        const foundUser = await usersModel.findById(userID)
-        return foundUser
+        return await usersModel.findById(userID)
     } catch (error) {
         throw Error('Error while fetching user. Location: userShowService')
     }

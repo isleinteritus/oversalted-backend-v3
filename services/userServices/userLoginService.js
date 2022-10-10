@@ -2,8 +2,7 @@ const usersModel = require("../../models/usersModel");
 
 const userLoginService = async (userInput) => {
     try {
-        const loggedIn = await usersModel.findOne(userInput)
-        return loggedIn
+        return await usersModel.findOne(userInput)
     } catch (error) {
         throw Error("Error while logging in user. Location:userLoginService")
     }
