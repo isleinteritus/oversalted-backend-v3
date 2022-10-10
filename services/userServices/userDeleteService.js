@@ -30,7 +30,7 @@ const userDeleteService = async (userID) => {
                             console.error(error)
                         }
                     })
-                    return null //some json status somehow.
+                    return null // todo some json status somehow.
                 }
             })
 
