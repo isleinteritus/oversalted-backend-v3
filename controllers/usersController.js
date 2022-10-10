@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {sendStandardResponse, sendDeletedResponse} = require('../utils/jsonResponseHelpers')
+const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js')
 
 
 //ROUTES
@@ -14,7 +14,7 @@ router.post('/create', async (req, res) => {
         
         res.json(sendStandardResponse(200, "Welcome to the Food-side", createdUser))
     } catch(error) {
-        res.json({error:"usercontroller register route",
+        res.json({message:"userController register route",
             error: error})
     }
 })
@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
 
         res.json(sendStandardResponse(200, "You're logged in!", userLoggedIn))
     } catch(error) {
-        res.json({error:"usercontroller login route",
+        res.json({message:"userController login route",
             error: error})
     }
 })
@@ -45,7 +45,7 @@ router.post('/logout', async (req, res) => {
 
         res.json(sendStandardResponse(200, "Bye bye forever", userLoggedOut))
     } catch(error) {
-        res.json({error:"usercontroller logout route",
+        res.json({message:"userController logout route",
             error: error})
     }
 
@@ -63,7 +63,7 @@ router.get('/:id', async (req, res) => {
 
         res.json(sendStandardResponse(200, "User has been located", foundUser))
     } catch(error) {
-        res.json({message:"usercontroller show route",
+        res.json({message:"userController show route",
             error: error})
     }
 })
@@ -72,21 +72,21 @@ router.get('/:id', async (req, res) => {
 //user id
 router.put('/:id', async (req, res) => {
     const {userUpdateService} = require('../services/userServices/userUpdateService.js')
-    const userIDAndInfo = req.body.id //users name email password & id
+    const userIDAndData = req.body.id //users name email password & id
 
     try {
-        const updatedUser = await userUpdateService(userIDAndInfo)
+        const updatedUser = await userUpdateService(userIDAndData)
 
         res.json(sendStandardResponse(200, "User has been updated", updatedUser))
     } catch (error) {
-        res.json({message:"usercontroller update route",
+        res.json({message:"userController update route",
             error: error})
     }
 })
 
 //DELETE
 //user ID
-//Still working out some loose ends here. Returns error yet deletse user still. Not sure how to send the correct
+//Still working out some loose ends here. Returns error yet delete user still. Not sure how to send the correct
 // json response after user is deleted. Deletion logic is in services/userDeleteServices.js
 router.delete('/:id', async (req, res) => {
     const {userDeleteService} = require('../services/userServices/userDeleteService.js')
@@ -97,7 +97,7 @@ router.delete('/:id', async (req, res) => {
 
         res.json(sendStandardResponse(200, "The Kitchen Death-God takes another", deletedUser))
     }catch (error) {
-        res.json({message:"usercontroller deleted route",
+        res.json({message:"userController deleted route",
             error: error})
     }
 })
