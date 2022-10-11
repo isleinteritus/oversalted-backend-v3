@@ -1,85 +1,82 @@
 const express = require('express')
 const router = express.Router()
-const tagsModel = require('../models/tagsModel.js')
-const forumsModel = require('../models/forumsModel.js')
-
+const {sendStandardResponse} = require("../utils/jsonResponseHelpers")
 
 //ROUTES
 ///////CREATE///////
-router.post ('/create', (req, res) => {
-    const tagInfo = req.body
-        tagsModel.create(tagInfo
-            , (error, createdTag) =>{
-            if (error) {
-                console.error(error)
-            } else {
-                res.json(createdTag)
-            }
-        })
+router.post ('/create', async (req, res) => {
+    const {tagCreateService} = require('../services/tagsServices/tagCreateService.js')
+    const tagBody = req.body
+    try {
+        const createdTag = await tagCreateService(tagBody)
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", createdTag))
+
+    } catch(error) {
+        res.json({message:"tagController create route",
+            error: error})
+    }
 })
 
 ///////INDEX///////
-router.get('/index', (req, res)=> {
-    tagsModel.find((error, foundTags) => {
-        if (error){
-            console.error(error)
-        }else{
-            res.json(foundTags)
-        }
-    })
+//doesn't work. :P Will get to it when ready to figure out the index issues.
+router.get('/index', async (req, res)=> {
+    const {tagIndexService} = require('../services/forumServices/forumIndexService.js')
+    try {
+        const tagsFound = await tagIndexService()
+
+        res.json(sendStandardResponse(200, "Forums Found", tagsFound))
+    } catch (error) {
+        res.json({message:"forumsController index route",
+            error: error})
+    }
 })
 
 ///////SHOW///////
 //tag id
-router.get('/:id', (req, res) => {
-            tagsModel.findById(
-                req.params.id,
-                (error, foundTag) => {
-                if (error) {
-                    console.error(error)
-                } else {
-                    res.json(foundTag)
-                }
-            })
+router.get('/:id', async (req, res) => {
+    const {tagShowService} = require('../services/TagServices/tagShowService.js')
+    const tagId = req.params.id
+
+    try {
+        const showTag = await tagShowService(tagId)
+
+        res.json(sendStandardResponse(200, "Tag has been deleted", showTag))
+    } catch (error) {
+        res.json({message:"tagController delete route",
+            error: error})
+    }
+
 })
 
 //UPDATE
 //tag id
-router.put('/:id', (req, res) => {
-    const tagID = req.params.id
-        tagsModel.findByIdAndUpdate(
-            tagID
-        , (error, _updatedTag) => {
-            if (error) {
-                console.error(error)
-            } else {
-                res.json({message: "updated tag"})
-            }
-        })
+router.put('/:id', async (req, res) => {
+    const {tagUpdateService} = require('../services/TagServices/tagUpdateService.js')
+    const tagId = req.params.id
+
+    try {
+        const updatedTag = await tagUpdateService(tagId)
+
+        res.json(sendStandardResponse(200, "Tag has been deleted", updatedTag))
+    } catch (error) {
+        res.json({message:"tagController delete route",
+            error: error})
+    }
+
 })
 //potential edge cases of having one tag only in the forum. All forums require >=1 tag
-router.delete('/:id', (req, res) => {
-    tagsModel.findByIdAndDelete(
-        req.params.id,
-        (error, deletedTag) => {
-        if (error) {
-            console.error(error)
-        } else {
-            forumsModel.updateMany({}, {
-                $pull: {
-                    parentTags: {
-                        $in: deletedTag._id
-                    }
-                }
-            }, (error, _updatedForumTag) => {
-                if (error) {
-                    console.error(error)
-                }
-            })
+router.delete('/:id', async (req, res) => {
+    const {tagDeleteService} = require('../services/TagServices/tagDeleteService.js')
+    const tagId = req.params.id
 
-            res.json({message: "Tag deleted"})
-        }
-    })
+    try {
+        const deletedTag = await tagDeleteService(tagId)
+
+        res.json(sendStandardResponse(200, "Tag has been deleted", deletedTag))
+    } catch (error) {
+        res.json({message:"tagController delete route",
+            error: error})
+    }
 })
 
 module.exports = router

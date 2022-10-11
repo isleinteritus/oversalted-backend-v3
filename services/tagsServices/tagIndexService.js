@@ -1,12 +1,13 @@
 const tagModel = require('../../models/tagsModel.js')
-
-const tagIndexService = async (tagData) => {
-    try {
-
-
-    } catch(error) {
-        throw Error('Error while fetching user. Location: tagIndexService')
-    }
+//doesn't work.
+const tagIndexService = (tagIndex) => {
+    tagModel.find((error, foundTags) => {
+        if (error){
+            console.error(error)
+        }else{
+            return foundTags
+        }
+    })
 }
 
 module.exports = {
