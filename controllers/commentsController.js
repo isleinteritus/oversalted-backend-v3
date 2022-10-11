@@ -1,104 +1,73 @@
 const express = require('express')
 const router = express.Router()
-const usersModel = require('../models/usersModel.js')
-const forumsModel = require('../models/forumsModel.js')
-const commentsModel = require('../models/commentsModel.js')
+const {sendStandardResponse} = require("../utils/jsonResponseHelpers");
 
 
 //ROUTES
 ///////CREATE///////
-router.post ('/create', (req, res) => {
-    commentsModel.create(req.body,
-        (error, createdComment) => {
-        if (error) {
-            console.error(error)
-        } else {
-            usersModel.findByIdAndUpdate(createdComment.commentOwner, {
-                $push: {
-                    userComments: createdComment.id
-                    }
-                }, (error, updatedUserComment) => {
-                    if (error) {
-                        console.error(error)
-                    }
-                })
-            forumsModel.findByIdAndUpdate(createdComment.parentForum, {
-                    $push: {
-                        comments: createdComment.id
-                    }
-                    }, (error, updatedForumComment) => {
-                    if (error) {
-                        console.error(error)
-                    }
-                })
-            res.json(createdComment)
-            }
-    })
+router.post ('/create', async (req, res) => {
+    const { commentCreateService } = require('../services/commentServices/commentCreateService.js')
+    const userInput = req.body
+
+    try {
+        const createdComment = await commentCreateService(userInput)
+    //returns null but still works
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", createdComment))
+    } catch(error) {
+        res.json({message:"commentController create route",
+            error: error})
+    }
 })
 ///////INDEX///////
 //comment ID
-router.get('/:id', (req, res)=> {
-    commentsModel.findById(req.params.id, (error, foundComment) => {
-        if (error) {
-            console.error(error)
-        } else {
-            res.json(foundComment)
-        }
-    })
+//TODO not sure how to set this up in correlation to index related comments to x forum. Well, I suppose that
+// statement says how to do it.
+//As of right now this doesn't work. Will return to it.
+router.get('/index', async (req, res)=> {
+    const { commentIndexService } = require('../services/commentServices/commentIndexService.js')
+    const forumId = req.params.id
+    try {
+        const indexComments = await commentIndexService(forumId)
+
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", indexComments))
+    } catch(error) {
+        res.json({message:"commentController index route",
+            error: error})
+    }
 })
 
 //UPDATE
 //comment id
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
+    const { commentUpdateService } = require('../services/commentServices/commentUpdateService.js')
+    const commentId = req.params.id
     const commentBody = req.body
-    commentsModel.findByIdAndUpdate(
-        req.params.id,
-        {
-            ...commentBody
-        }
-        , (error, updatedComment) => {
-            if (error) {
-                console.error(error)
-            } else {
-                res.json({message:"successful"})
-                }
-            })
+
+    try {
+        const updatedComment = await commentUpdateService(commentId, commentBody)
+
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", updatedComment))
+    } catch(error) {
+        res.json({message:"commentController create route",
+            error: error})
+    }
 })
 
 //DELETE
 //comment id
-router.delete('/:id', (req,res) => {
-    commentsModel.findByIdAndDelete(
-        req.params.id,
-        (error, deletedComment) => {
-            if (error) {
-                console.error(error)
-            } else {
-                usersModel.updateOne({}, {
-                    $pull: {
-                        userComments: {
-                            $in: deletedComment._id
-                        }
-                    }
-                    }, (error, updatedUserComment) => {
-                    if (error) {
-                        console.error(error)
-                    }
-                })
-                forumsModel.updateOne({}, {
-                    $pull: {
-                        comments: {
-                            $in: deletedComment._id
-                        }
-                    }
-                    }, (error, updatedForumComment) => {
-                    if (error) {
-                        console.error(error)
-                    }
-                })
-                res.json({message: "Comment deleted"})
-            }
-        })
+router.delete('/:id', async (req,res) => {
+    const { commentDeleteService } = require('../services/commentServices/commentDeleteService.js')
+    const commentId = req.params.id
+
+    try {
+        const deletedComment = await commentDeleteService(commentId)
+
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", deletedComment))
+    } catch(error) {
+        res.json({message:"commentController delete route",
+            error: error})
+    }
+
 })
 
 module.exports = router
