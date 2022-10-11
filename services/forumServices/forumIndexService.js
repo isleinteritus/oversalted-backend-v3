@@ -1,9 +1,9 @@
 const forumsModel = require('../../models/forumsModel.js')
 
-
+//currently does not work. Haven't decided how to form to present the index in correlation to overSalteds echo system.
 const forumIndexService = async (forumIndex) => {
     try {
-        await forumsModel.find(forumIndex, (error, foundForums) => {
+         forumsModel.find(forumIndex, (error, foundForums) => {
         	if (error) {
         		console.error(error)
         	} else {

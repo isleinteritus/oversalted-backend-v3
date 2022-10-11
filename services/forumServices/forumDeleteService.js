@@ -6,7 +6,7 @@ const tagsModel = require("../../models/tagsModel.js")
 const forumDeleteService = async (forumId) => {
     try {
         await forumsModel.findByIdAndDelete(
-            forumId.id,
+            forumId,
             (error, deletedForum) => {
                 if (error) {
                     console.error(error)
