@@ -1,4 +1,4 @@
-const tagModel = require('../../models/tagsModel.js')
+const tagModel = require('../../models/tagModel.js')
 
 const tagUpdateService = (tagId, tagBody) => {
     tagModel.findByIdAndUpdate(

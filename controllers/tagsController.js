@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {sendStandardResponse} = require("../utils/jsonResponseHelpers")
+const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js')
 
 //ROUTES
 ///////CREATE///////

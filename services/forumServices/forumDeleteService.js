@@ -1,7 +1,7 @@
-const forumsModel = require('../../models/forumsModel.js')
-const usersModel = require("../../models/usersModel.js")
-const commentsModel = require("../../models/commentsModel.js")
-const tagsModel = require("../../models/tagsModel.js")
+const forumsModel = require('../../models/forumModel.js')
+const usersModel = require('../../models/userModel.js')
+const commentsModel = require('../../models/commentModel.js')
+const tagsModel = require('../../models/tagModel.js')
 
 const forumDeleteService = async (forumId) => {
     try {

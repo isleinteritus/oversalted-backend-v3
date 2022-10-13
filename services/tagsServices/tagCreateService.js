@@ -1,4 +1,4 @@
-const tagModel = require('../../models/tagsModel.js')
+const tagModel = require('../../models/tagModel.js')
 
 const tagCreateService = async (tagBody) => {
     return tagModel.create(tagBody)

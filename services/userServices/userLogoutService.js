@@ -1,10 +1,10 @@
-const usersModel = require('../../models/usersModel')
+const usersModel = require('../../models/userModel.js')
 
 const userLogoutService = async (userInfo) => {
     try {
         return await usersModel.findOne(userInfo)
     } catch (error) {
-        throw Error('Error while logging out user. Location: userLogoutService')
+        throw Error("Error while logging out user. Location: userLogoutService")
     }
 }
 

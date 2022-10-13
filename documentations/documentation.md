@@ -2,6 +2,7 @@
 Postman tests.
 These are not finals. 
 
+
 ```
 // comment/create
 {
@@ -32,5 +33,13 @@ These are not finals.
     "title":"",
     "content":""
 }
+
+```
+
+Signals of Intent. Such nuance. 
+```
+'' = require/import statements
+"" = written statements
+`` = string interpolation
 
 ```

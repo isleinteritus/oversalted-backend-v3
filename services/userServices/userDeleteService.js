@@ -1,6 +1,6 @@
-const usersModel = require('../../models/usersModel')
-const forumsModel = require("../../models/forumsModel")
-const commentsModel = require("../../models/commentsModel")
+const usersModel = require('../../models/userModel.js')
+const forumsModel = require('../../models/forumModel.js')
+const commentsModel = require('../../models/commentModel.js')
 
 //It deletes the user however returns an error via controller each time.
 // While successful it has nothing to return.
@@ -25,7 +25,7 @@ const userDeleteService = async (userID) => {
                     })
                     commentsModel.updateMany({}, {
                         commentOwner: null // todo make an admin account and assign all deletions to
-                        // an acct called "Kitchen Death God"
+                        // an acct called 'Kitchen Death God'
                     }, (error, _deletedComment) => {
                         if (error) {
                             console.error(error)
@@ -36,7 +36,7 @@ const userDeleteService = async (userID) => {
             })
 
     } catch(error) {
-        throw Error('Error while deleting user. Location: userDeleteService')
+        throw Error("Error while deleting user. Location: userDeleteService")
     }
 }
 

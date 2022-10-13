@@ -1,6 +1,6 @@
-const forumsModel = require('../../models/forumsModel.js')
-const usersModel = require('../../models/usersModel.js')
-const tagsModel = require('../../models/tagsModel.js')
+const forumsModel = require('../../models/forumModel.js')
+const usersModel = require('../../models/userModel.js')
+const tagsModel = require('../../models/tagModel.js')
 
 const forumCreateService = async (forumData) => {
     try {

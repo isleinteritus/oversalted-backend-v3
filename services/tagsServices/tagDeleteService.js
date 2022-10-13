@@ -1,5 +1,5 @@
-const tagModel = require('../../models/tagsModel.js')
-const forumModel = require("../../models/forumsModel.js");
+const tagModel = require('../../models/tagModel.js')
+const forumModel = require('../../models/forumModel.js')
 
 const tagDeleteService = (tagId) => {
     tagModel.findByIdAndDelete(

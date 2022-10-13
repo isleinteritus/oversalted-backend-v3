@@ -1,4 +1,4 @@
-const forumsModel = require('../../models/forumsModel.js')
+const forumsModel = require('../../models/forumModel.js')
 
 const forumShowService = async (forumId) => {
     try {
@@ -12,7 +12,7 @@ const forumShowService = async (forumId) => {
                 }
             })
     } catch (error) {
-        throw Error('Error while fetching user. Location: forumCreateService')
+        throw Error("Error while fetching user. Location: forumCreateService")
     }
 }
 

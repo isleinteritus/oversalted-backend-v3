@@ -1,4 +1,4 @@
-const forumsModel = require('../../models/forumsModel.js')
+const forumsModel = require('../../models/forumModel.js')
 
 //currently does not work. Haven't decided how to form to present the index in correlation to overSalteds echo system.
 const forumIndexService = async (forumIndex) => {
@@ -11,7 +11,7 @@ const forumIndexService = async (forumIndex) => {
         	}
         })
     } catch (error) {
-        throw Error('Error while fetching user. Location: forumIndexService')
+        throw Error("Error while fetching user. Location: forumIndexService")
     }
 }
 

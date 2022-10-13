@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {sendStandardResponse} = require("../utils/jsonResponseHelpers");
+const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js');
 
 
 //ROUTES
 ///////CREATE///////
-router.post ('/create', async (req, res) => {
+router.post('/create', async (req, res) => {
     const { commentCreateService } = require('../services/commentServices/commentCreateService.js')
     const userInput = req.body
 

@@ -1,6 +1,6 @@
-const commentModel = require('../../models/commentsModel.js')
-const userModel = require('../../models/usersModel.js')
-const forumModel = require('../../models/forumsModel.js')
+const commentModel = require('../../models/commentModel.js')
+const userModel = require('../../models/userModel.js')
+const forumModel = require('../../models/forumModel.js')
 
 const commentDeleteService = (commentId) => {
          commentModel.findByIdAndDelete(

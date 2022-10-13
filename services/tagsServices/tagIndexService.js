@@ -1,4 +1,4 @@
-const tagModel = require('../../models/tagsModel.js')
+const tagModel = require('../../models/tagModel.js')
 //doesn't work.
 const tagIndexService = (tagIndex) => {
     tagModel.find((error, foundTags) => {

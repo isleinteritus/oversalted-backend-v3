@@ -1,6 +1,6 @@
-const commentModel = require('../../models/commentsModel.js')
-const usersModel = require("../../models/usersModel.js");
-const forumsModel = require("../../models/forumsModel.js");
+const commentModel = require('../../models/commentModel.js')
+const usersModel = require('../../models/userModel.js')
+const forumsModel = require('../../models/forumModel.js')
 
 const commentCreateService = async (commentData) => {
     commentModel.create(commentData,

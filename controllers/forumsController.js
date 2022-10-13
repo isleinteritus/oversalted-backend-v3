@@ -1,12 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const usersModel = require('../models/usersModel.js')
-const forumsModel = require('../models/forumsModel.js')
-const commentsModel = require('../models/commentsModel.js')
-const tagsModel = require('../models/tagsModel.js')
-const {sendStandardResponse} = require("../utils/jsonResponseHelpers.js");
-const {forumShowService} = require("../services/forumServices/forumShowService");
-
+const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js')
 
 
 //ROUTES
