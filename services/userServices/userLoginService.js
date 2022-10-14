@@ -1,8 +1,8 @@
-const usersModel = require('../../models/userModel.js')
+const userModel = require('../../models/userModel.js')
 
 const userLoginService = async (userInput) => {
     try {
-        return await usersModel.findOne(userInput)
+        return await userModel.findOne(userInput)
     } catch (error) {
         throw Error("Error while logging in user. Location:userLoginService")
     }

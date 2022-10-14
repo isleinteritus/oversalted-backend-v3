@@ -1,17 +1,17 @@
-const forumsModel = require('../../models/forumModel.js')
-const usersModel = require('../../models/userModel.js')
-const commentsModel = require('../../models/commentModel.js')
-const tagsModel = require('../../models/tagModel.js')
+const forumModel = require('../../models/forumModel.js')
+const userModel = require('../../models/userModel.js')
+const commentModel = require('../../models/commentModel.js')
+const tagModel = require('../../models/tagModel.js')
 
 const forumDeleteService = async (forumId) => {
     try {
-        await forumsModel.findByIdAndDelete(
+        await forumModel.findByIdAndDelete(
             forumId,
             (error, deletedForum) => {
                 if (error) {
                     console.error(error)
                 } else {
-                    usersModel.updateMany({}, {
+                    userModel.updateMany({}, {
                         $pull: {
                             userForums: {
                                 $in: deletedForum._id
@@ -22,7 +22,7 @@ const forumDeleteService = async (forumId) => {
                             console.error(error)
                         }
                     })
-                    usersModel.updateMany({}, {
+                    userModel.updateMany({}, {
                         $pull: {
                             userComments: {
                                 $in: deletedForum.comments
@@ -33,7 +33,7 @@ const forumDeleteService = async (forumId) => {
                             console.error(error)
                         }
                     })
-                    commentsModel.deleteMany({
+                    commentModel.deleteMany({
                         _id: {
                             $in: deletedForum.comments
                         }
@@ -42,7 +42,7 @@ const forumDeleteService = async (forumId) => {
                             console.error(error)
                         }
                     })
-                    tagsModel.updateMany({}, {
+                    tagModel.updateMany({}, {
                         $pull: {
                             taggedForums: {
                                 $in: deletedForum._id

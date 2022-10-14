@@ -1,14 +1,14 @@
-const forumsModel = require('../../models/forumModel.js')
-const usersModel = require('../../models/userModel.js')
-const tagsModel = require('../../models/tagModel.js')
+const forumModel = require('../../models/forumModel.js')
+const userModel = require('../../models/userModel.js')
+const tagModel = require('../../models/tagModel.js')
 
 const forumCreateService = async (forumData) => {
     try {
-        const createdForum = await forumsModel.create(forumData, (error, createForum) => {
+        const createdForum = await forumModel.create(forumData, (error, createForum) => {
             if (error) {
                 console.error(error)
             } else {
-                usersModel.findByIdAndUpdate(createForum.forumOwner, {
+                userModel.findByIdAndUpdate(createForum.forumOwner, {
                     $push: {
                         userForums: createForum._id
                         }
@@ -19,7 +19,7 @@ const forumCreateService = async (forumData) => {
                     }
                 )
 
-                tagsModel.updateMany({
+                tagModel.updateMany({
                     _id: {
                         $in: createForum.parentTags
                         }
@@ -44,7 +44,7 @@ const forumCreateService = async (forumData) => {
             }
         })
         console.log("forumCreateService: outside createdForum block", createdForum)
-        return forumsModel.findById(createdForum) //returns as null
+        return forumModel.findById(createdForum) //returns as null
     } catch(error) {
         throw Error('Error while fetching user. Location: forumCreateService')
     }

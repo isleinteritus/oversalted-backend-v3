@@ -1,8 +1,8 @@
-const forumsModel = require('../../models/forumModel.js')
+const forumModel = require('../../models/forumModel.js')
 
 const forumShowService = async (forumId) => {
     try {
-        return await forumsModel.findById(
+        return await forumModel.findById(
             forumId,
             (error, foundForum) => {
                 if (error) {

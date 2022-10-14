@@ -1,8 +1,8 @@
-const forumsModel = require('../../models/forumModel.js')
+const forumModel = require('../../models/forumModel.js')
 
 const forumUpdateService = async (forumId, forumBody) => {
     try {
-        await forumsModel.findByIdAndUpdate(
+        await forumModel.findByIdAndUpdate(
             forumId,
             {
                 ...forumBody
@@ -12,7 +12,7 @@ const forumUpdateService = async (forumId, forumBody) => {
                 }
             }
             )
-        return forumsModel.findById(forumId)
+        return forumModel.findById(forumId)
     } catch (error) {
         throw Error("Error while fetching user. Location: forumCreateService")
     }

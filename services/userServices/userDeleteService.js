@@ -1,6 +1,6 @@
-const usersModel = require('../../models/userModel.js')
-const forumsModel = require('../../models/forumModel.js')
-const commentsModel = require('../../models/commentModel.js')
+const userModel = require('../../models/userModel.js')
+const forumModel = require('../../models/forumModel.js')
+const commentModel = require('../../models/commentModel.js')
 
 //It deletes the user however returns an error via controller each time.
 // While successful it has nothing to return.
@@ -10,20 +10,20 @@ const commentsModel = require('../../models/commentModel.js')
 //LOOK HERE: try adding return to await usersModel.
 const userDeleteService = async (userID) => {
     try{
-         return await usersModel.findByIdAndRemove(
+         return await userModel.findByIdAndRemove(
             userID,
             (error, _deletedUser) => {
                 if (error) {
                     console.error(error)
                 } else {
-                    forumsModel.updateMany({}, {
+                    forumModel.updateMany({}, {
                         forumOwner: null //todo make an admin account and assign all deletions to an account called "Kitchen Death God"
                     }, (error, _deletedForum) => {
                         if (error) {
                             console.error(error)
                         }
                     })
-                    commentsModel.updateMany({}, {
+                    commentModel.updateMany({}, {
                         commentOwner: null // todo make an admin account and assign all deletions to
                         // an acct called 'Kitchen Death God'
                     }, (error, _deletedComment) => {

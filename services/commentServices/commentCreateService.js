@@ -1,6 +1,6 @@
 const commentModel = require('../../models/commentModel.js')
-const usersModel = require('../../models/userModel.js')
-const forumsModel = require('../../models/forumModel.js')
+const userModel = require('../../models/userModel.js')
+const forumModel = require('../../models/forumModel.js')
 
 const commentCreateService = async (commentData) => {
     commentModel.create(commentData,
@@ -8,7 +8,7 @@ const commentCreateService = async (commentData) => {
                 if (error) {
                     console.error(error)
                 } else {
-                    usersModel.findByIdAndUpdate(createdComment.commentOwner, {
+                    userModel.findByIdAndUpdate(createdComment.commentOwner, {
                         $push: {
                             userComments: createdComment.id
                         }
@@ -17,7 +17,7 @@ const commentCreateService = async (commentData) => {
                             console.error(error)
                         }
                     })
-                    forumsModel.findByIdAndUpdate(createdComment.parentForum, {
+                    forumModel.findByIdAndUpdate(createdComment.parentForum, {
                         $push: {
                             comments: createdComment.id
                         }
