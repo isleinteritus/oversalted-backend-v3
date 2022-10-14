@@ -53,9 +53,10 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const {tagUpdateService} = require('../services/TagServices/tagUpdateService.js')
     const tagId = req.params.id
+    const tagBody = req.body
 
     try {
-        const updatedTag = await tagUpdateService(tagId)
+        const updatedTag = await tagUpdateService(tagId, tagBody)
 
         res.json(sendStandardResponse(200, "Tag has been deleted", updatedTag))
     } catch (error) {
