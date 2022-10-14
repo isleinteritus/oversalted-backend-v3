@@ -7,10 +7,10 @@ const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js');
 ///////CREATE///////
 router.post('/create', async (req, res) => {
     const { commentCreateService } = require('../services/commentServices/commentCreateService.js')
-    const userInput = req.body
+    const commentBody = req.body
 
     try {
-        const createdComment = await commentCreateService(userInput)
+        const createdComment = await commentCreateService(commentBody)
     //returns null but still works
         res.json(sendStandardResponse(200, "Welcome to the Food-side", createdComment))
     } catch(error) {
@@ -25,9 +25,9 @@ router.post('/create', async (req, res) => {
 //As of right now this doesn't work. Will return to it.
 router.get('/index', async (req, res)=> {
     const { commentIndexService } = require('../services/commentServices/commentIndexService.js')
-    const forumId = req.params.id
+    const commentId = req.params.id
     try {
-        const indexComments = await commentIndexService(forumId)
+        const indexComments = await commentIndexService(commentId)
 
         res.json(sendStandardResponse(200, "Welcome to the Food-side", indexComments))
     } catch(error) {

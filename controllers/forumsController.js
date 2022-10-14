@@ -8,9 +8,9 @@ const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js')
 // service.At least res.json works. However it does return null.
 router.post ('/create', async (req, res) => {
     const {forumCreateService} = require('../services/forumServices/forumCreateService.js')
-	const forumData = req.body
+	const forumBody = req.body
     try {
-        const createdForum = await forumCreateService(forumData)
+        const createdForum = await forumCreateService(forumBody)
         //returns undefined
         console.log("forumsCreateController is", createdForum)
         res.json(sendStandardResponse(200, "Welcome to the Food-side", createdForum))

@@ -2,9 +2,9 @@ const forumModel = require('../../models/forumModel.js')
 const userModel = require('../../models/userModel.js')
 const tagModel = require('../../models/tagModel.js')
 
-const forumCreateService = async (forumData) => {
+const forumCreateService = async (forumBody) => {
     try {
-        const createdForum = await forumModel.create(forumData, (error, createForum) => {
+        const createdForum = await forumModel.create(forumBody, (error, createForum) => {
             if (error) {
                 console.error(error)
             } else {

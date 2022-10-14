@@ -8,10 +8,10 @@ const commentModel = require('../../models/commentModel.js')
 //Something to note is that the user may-be deleted however all submissions of the user will be rendered null until
 // I make an account for The Kitchen Death God that we will apply all deleted accounts to that accounts handle.
 //LOOK HERE: try adding return to await usersModel.
-const userDeleteService = async (userID) => {
+const userDeleteService = async (userId) => {
     try{
          return await userModel.findByIdAndRemove(
-            userID,
+            userId,
             (error, _deletedUser) => {
                 if (error) {
                     console.error(error)
