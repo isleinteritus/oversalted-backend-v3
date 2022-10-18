@@ -10,7 +10,7 @@ const commentModel = require('../../models/commentModel.js')
 //LOOK HERE: try adding return to await usersModel.
 const userDeleteService = async (userId) => {
     try{
-         return await userModel.findByIdAndRemove(
+        await userModel.findByIdAndRemove(
             userId,
             (error, _deletedUser) => {
                 if (error) {
@@ -31,9 +31,9 @@ const userDeleteService = async (userId) => {
                             console.error(error)
                         }
                     })
-                    return null // todo some json status somehow.
                 }
             })
+        return null
 
     } catch(error) {
         throw Error("Error while deleting user. Location: userDeleteService")

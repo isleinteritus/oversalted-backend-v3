@@ -4,7 +4,6 @@ const commentModel = require('../../models/commentModel.js')
 const tagModel = require('../../models/tagModel.js')
 
 const forumDeleteService = async (forumId) => {
-    try {
         await forumModel.findByIdAndDelete(
             forumId,
             (error, deletedForum) => {
@@ -57,9 +56,6 @@ const forumDeleteService = async (forumId) => {
                     return null
                 }
             })
-    } catch (error) {
-        throw Error('Error while fetching user. Location: forumCreateService')
-    }
 }
 
 module.exports = {

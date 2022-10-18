@@ -3,7 +3,6 @@ const userModel = require('../../models/userModel.js')
 const tagModel = require('../../models/tagModel.js')
 
 const forumCreateService = async (forumBody) => {
-    try {
         const createdForum = await forumModel.create(forumBody, (error, createForum) => {
             if (error) {
                 console.error(error)
@@ -45,9 +44,6 @@ const forumCreateService = async (forumBody) => {
         })
         console.log("forumCreateService: outside createdForum block", createdForum)
         return forumModel.findById(createdForum) //returns as null
-    } catch(error) {
-        throw Error('Error while fetching user. Location: forumCreateService')
-    }
 }
 
 module.exports = {

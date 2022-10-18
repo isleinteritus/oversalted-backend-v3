@@ -1,7 +1,7 @@
 const tagModel = require('../../models/tagModel.js')
 
-//its odd that the error handling prevents a value from being returned.
-const tagShowService = (tagId) => {
+//it's odd that the error handling prevents a value from being returned.
+const tagShowService = async (tagId) => {
     return tagModel.findById(tagId)
 }
 

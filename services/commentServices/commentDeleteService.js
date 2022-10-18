@@ -2,8 +2,8 @@ const commentModel = require('../../models/commentModel.js')
 const userModel = require('../../models/userModel.js')
 const forumModel = require('../../models/forumModel.js')
 
-const commentDeleteService = (commentId) => {
-         commentModel.findByIdAndDelete(
+const commentDeleteService = async (commentId) => {
+         await commentModel.findByIdAndDelete(
             commentId,
             (error, deletedComment) => {
                 if (error) {

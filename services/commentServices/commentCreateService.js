@@ -3,7 +3,7 @@ const userModel = require('../../models/userModel.js')
 const forumModel = require('../../models/forumModel.js')
 
 const commentCreateService = async (commentBody) => {
-    commentModel.create(commentBody,
+    await commentModel.create(commentBody,
             (error, createdComment) => {
                 if (error) {
                     console.error(error)
