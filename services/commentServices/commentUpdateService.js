@@ -1,18 +1,14 @@
 const commentModel = require('../../models/commentModel.js')
 
 const commentUpdateService = async (commentId, commentBody) => {
+    try {
         await commentModel.findByIdAndUpdate(
             commentId,
             {
                 ...commentBody
-            }
-            , (error, updatedComment) => {
-                if (error) {
-                    console.error(error)
-                } else {
-                    return null //change this later
-                    }
-                })
+            })
+    }catch(error){}
+
 }
 
 module.exports = {

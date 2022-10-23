@@ -10,31 +10,18 @@ const commentModel = require('../../models/commentModel.js')
 //LOOK HERE: try adding return to await usersModel.
 const userDeleteService = async (userId) => {
     try{
-        await userModel.findByIdAndRemove(
-            userId,
-            (error, _deletedUser) => {
-                if (error) {
-                    console.error(error)
-                } else {
-                    forumModel.updateMany({}, {
-                        forumOwner: null //todo make an admin account and assign all deletions to an account called "Kitchen Death God"
-                    }, (error, _deletedForum) => {
-                        if (error) {
-                            console.error(error)
-                        }
-                    })
-                    commentModel.updateMany({}, {
-                        commentOwner: null // todo make an admin account and assign all deletions to
-                        // an acct called 'Kitchen Death God'
-                    }, (error, _deletedComment) => {
-                        if (error) {
-                            console.error(error)
-                        }
-                    })
-                }
+        await userModel.findByIdAndRemove(userId)
+        await forumModel.updateMany({},
+            {
+            forumOwner: null //todo make an admin account and assign all deletions to an account called "Kitchen Death God"
             })
+        await commentModel.updateMany({},
+            {
+            commentOwner: null
+            // todo make an admin account and assign all deletions to
+            // an acct called 'Kitchen Death God'
+                    })
         return null
-
     } catch(error) {
         throw Error("Error while deleting user. Location: userDeleteService")
     }

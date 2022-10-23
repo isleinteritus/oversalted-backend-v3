@@ -1,15 +1,12 @@
 const forumModel = require('../../models/forumModel.js')
 
 const forumShowService = async (forumId) => {
-         await forumModel.findById(
-            forumId,
-            (error, foundForum) => {
-                if (error) {
-                    console.error(error)
-                } else {
-                    return foundForum
-                }
-            })
+    try {
+        const foundForum = await forumModel.findById(forumId)
+        return foundForum
+    }catch(error) {
+
+    }
 }
 
 module.exports = {
