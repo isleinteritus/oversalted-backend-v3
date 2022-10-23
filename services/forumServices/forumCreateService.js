@@ -3,49 +3,35 @@ const userModel = require('../../models/userModel.js')
 const tagModel = require('../../models/tagModel.js')
 
 const forumCreateService = async (forumBody) => {
-        const createdForum = await forumModel.create(forumBody, (error, createForum) => {
-            if (error) {
-                console.error(error)
-            } else {
-                userModel.findByIdAndUpdate(createForum.forumOwner, {
-                    $push: {
-                        userForums: createForum._id
-                        }
-                    }, (error, _updatedUserForum) => {
-                        if (error) {
-                            console.error(error)
-                        }
-                    }
-                )
+    const {forumOwner, parentTags} = forumBody
+    let newlyMadeForumId;
+    try {
+        const createdForum = await forumModel.create([forumBody])
+        newlyMadeForumId = createdForum[0]._id
 
-                tagModel.updateMany({
-                    _id: {
-                        $in: createForum.parentTags
-                        }
-                    },
-                    {
-                        $push: {
-                            taggedForums: {
-                                _id: createForum._id
-                            }
-                        }
-                    }, (error, _updatedTags) => {
-                        if (error) {
-                            console.error(error)
-                        }
-                    }
-                )
-                //TODO object data is shown here however once outside of this inner block it returns undefined as it
-                // does
-                // in the forumsController. Why is it only here that the data shows?
-                //console.log("inner block createForum id is", createForum._id)
-                return createForum._id
+        await userModel.findByIdAndUpdate(forumOwner, {
+            $push: {
+                userForums: newlyMadeForumId
             }
         })
-        console.log("forumCreateService: outside createdForum block", createdForum)
-        return forumModel.findById(createdForum) //returns as null
-}
 
+        await tagModel.updateMany({
+                _id: {
+                    $in: parentTags
+                }
+            },
+            {
+                $push: {
+                    taggedForums: {
+                        _id: newlyMadeForumId
+                    }
+                }
+            })
+        return createdForum
+    } catch (error) {
+        throw new Error(error)
+    }
+}
 module.exports = {
     forumCreateService
 }
