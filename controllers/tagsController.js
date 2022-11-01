@@ -5,7 +5,7 @@ const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js')
 //ROUTES
 ///////CREATE///////
 router.post ('/create', async (req, res) => {
-    const {tagCreateService} = require('../services/tagsServices/tagCreateService.js')
+    const {tagCreateService} = require('../services/tagServices/tagCreateService.js')
     const tagBody = req.body
     try {
         const createdTag = await tagCreateService(tagBody)
