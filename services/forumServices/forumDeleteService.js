@@ -4,11 +4,13 @@ const commentModel = require('../../models/commentModel.js')
 const tagModel = require('../../models/tagModel.js')
 
 const forumDeleteService = async (forumId) => {
+    const deletedReturnMessage = {deleted: "forum's 86"}
+
     try {
         //[NOTE] May need to findthe forum first then destructure it to pull out needed information to delete from
-        // other models.
-        await forumModel.findByIdAndDelete(
-            forumId)
+        // other models then delete the main forum
+        await forumModel.findByIdAndDelete(forumId)
+
         await userModel.updateMany({}, {
             $pull: {
                 userForums: {
@@ -35,9 +37,10 @@ const forumDeleteService = async (forumId) => {
                 }
             }
         })
-                    //TODO WHAT CAN I RETURN HERE? D:
-                    return null
+
+        return deletedReturnMessage
     } catch(error) {
+        throw Error(error)
 
     }
         // await forumModel.findByIdAndDelete(
