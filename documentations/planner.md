@@ -3,23 +3,6 @@
 TODO
 The more I do, the more problems arrive. Living a simple life creates complexity.
 
-~~1) put fat controllers on a diet~~
-2) Deal with the many todos the fat controller diet plan. THe routes work, yet some do not return data
-   3) Forum controllers/services
-      4) create route works, yet no object is returned from the services thus .json doesn't return data.
-         5) managed to get null back. Ill leave it there for now. 
-         6) Fix: send muiltiple variables if needed from 
-            controller to service route. Then outside of service logic return the model by findings its id. My need 
-            to destructure to pull id from body within controller.
-         7) Wondering it I need to return anything but the json within controller signifying that it is done. 
-            No data to be returned since user is deleted...Though I would like to return a message so perhaps 
-            I will write a json helper for delete routes that return a message and status
-      6) All index routes need work.
-      5) user controller/services
-         6) user delete route, user is deleted however exception is caught due to nothing being returne. User is 
-            deleted though.
-   ~~7)Go over and research into return await, if it is worth it. If not just do redudant variables to reduce 
-            potential error risks.~~ 
 2) Once fat controller refactor is done go back and descontruct the reqs for a greater degree of control in input 
    data. Or do validation loop. Probaly validation loop. Probaly both for greater degree of manipulation.  
 4) Add sessions through redis
