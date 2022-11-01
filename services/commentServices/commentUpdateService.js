@@ -7,7 +7,9 @@ const commentUpdateService = async (commentId, commentBody) => {
             {
                 ...commentBody
             })
-    }catch(error){}
+    }catch(error){
+         throw Error(error)
+    }
 
 }
 

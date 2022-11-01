@@ -3,26 +3,34 @@ const userModel = require('../../models/userModel.js')
 const forumModel = require('../../models/forumModel.js')
 
 const commentDeleteService = async (commentId) => {
+    const deletedReturnMessage = {deleted: "Comment's 86"}
     try {
+        const {commentOwner, parentForum} = await commentModel.findById(commentId)
+
         await commentModel.findByIdAndDelete(
             commentId)
-        await userModel.updateOne({}, {
-            $pull: {
-                userComments: {
-                    $in: deletedComment._id
+
+        await userModel.findByIdAndUpdate(commentOwner,
+            {
+                $pull: {
+                    userComments: {
+                        $in: commentId
+                    }
                 }
-            }
-        })
-        await forumModel.updateOne({}, {
-            $pull: {
-                comments: {
-                    $in: deletedComment._id
+            })
+        await forumModel.findByIdAndUpdate(parentForum,
+            {
+                $pull: {
+                    comments: {
+                        $in: commentId
+                    }
                 }
-            }
-        })
-                    return null //this will eventually be fixed once I figure out how to handle delete routes in
-                    // returning sucess message. As of right now it does its job.
-    }catch(error){}
+            })
+        return deletedReturnMessage
+
+    }catch(error){
+        throw Error(error)
+    }
 
 }
 

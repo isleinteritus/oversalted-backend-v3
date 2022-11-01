@@ -3,21 +3,29 @@ const userModel = require('../../models/userModel.js')
 const forumModel = require('../../models/forumModel.js')
 
 const commentCreateService = async (commentBody) => {
+    const {commentOwner, parentForum} = commentBody
+    let newlyMadeCommentId;
     try {
-        await commentModel.create(commentBody)
-        await userModel.findByIdAndUpdate(
-            createdComment.commentOwner,
+        const createdComment = await commentModel.create([commentBody])
+        newlyMadeCommentId = createdComment[0]._id
+
+        await userModel.findByIdAndUpdate(commentOwner,
             {
                 $push: {
-                    userComments: createdComment.id
+                    userComments: newlyMadeCommentId
                 }
             })
-        await forumModel.findByIdAndUpdate(createdComment.parentForum, {
-            $push: {
-                comments: createdComment.id
-            }
-        })
-    }catch(error){}
+
+        await forumModel.findByIdAndUpdate(parentForum,
+            {
+                $push: {
+                    comments: newlyMadeCommentId
+                }
+            })
+        return createdComment
+    }catch(error){
+        throw Error(error)
+    }
 
 }
 
