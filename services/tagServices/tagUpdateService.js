@@ -9,7 +9,7 @@ const tagUpdateService = async (tagId, tagBody) => {
             })
         return tagModel.findById(tagId)
     }catch(error) {
-
+        throw Error(error)
     }
 }
 

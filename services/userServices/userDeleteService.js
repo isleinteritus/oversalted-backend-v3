@@ -9,6 +9,8 @@ const commentModel = require('../../models/commentModel.js')
 // I make an account for The Kitchen Death God that we will apply all deleted accounts to that accounts handle.
 //LOOK HERE: try adding return to await usersModel.
 const userDeleteService = async (userId) => {
+    const deletedReturnMessage = {deleted: "user's 86"}
+
     try{
         await userModel.findByIdAndRemove(userId)
         await forumModel.updateMany({},

@@ -9,6 +9,7 @@ const forumUpdateService = async (forumId, forumBody) => {
             })
         return forumModel.findById(forumId)
     }catch(error) {
+        throw Error(error)
 
     }
 }

@@ -6,6 +6,7 @@ const forumIndexService = async (forumIndex) => {
         const foundForums = await forumModel.find(forumIndex)
         return foundForums
     } catch(error) {
+        throw Error(error)
 
     }
 }

@@ -5,6 +5,7 @@ const forumShowService = async (forumId) => {
         const foundForum = await forumModel.findById(forumId)
         return foundForum
     }catch(error) {
+        throw Error(error)
 
     }
 }

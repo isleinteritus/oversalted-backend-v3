@@ -5,7 +5,7 @@ const tagIndexService = async (tagIndex) => {
         const foundTags = await tagModel.find(tagIndex)
         return foundTags
     }catch(error){
-
+        throw Error(error)
     }
 
 }

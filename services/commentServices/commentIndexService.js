@@ -6,7 +6,9 @@ const commentIndexService = async (forumId) => {
     try{
         const foundComments = await commentModel.find(forumId)
         return foundComments
-    }catch(error){}
+    }catch(error){
+        throw Error(error)
+    }
 
 }
 
