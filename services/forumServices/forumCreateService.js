@@ -9,9 +9,10 @@ const forumCreateService = async (forumBody) => {
         const createdForum = await forumModel.create([forumBody])
         newlyMadeForumId = createdForum[0]._id
 
-        await userModel.findByIdAndUpdate(forumOwner, {
-            $push: {
-                userForums: newlyMadeForumId
+        await userModel.findByIdAndUpdate(forumOwner,
+            {
+                $push: {
+                    userForums: newlyMadeForumId
             }
         })
 

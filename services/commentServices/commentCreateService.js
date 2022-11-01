@@ -3,32 +3,30 @@ const userModel = require('../../models/userModel.js')
 const forumModel = require('../../models/forumModel.js')
 
 const commentCreateService = async (commentBody) => {
-    await commentModel.create(commentBody,
-            (error, createdComment) => {
-                if (error) {
-                    console.error(error)
-                } else {
-                    userModel.findByIdAndUpdate(createdComment.commentOwner, {
-                        $push: {
-                            userComments: createdComment.id
-                        }
-                    }, (error, updatedUserComment) => {
-                        if (error) {
-                            console.error(error)
-                        }
-                    })
-                    forumModel.findByIdAndUpdate(createdComment.parentForum, {
-                        $push: {
-                            comments: createdComment.id
-                        }
-                    }, (error, updatedForumComment) => {
-                        if (error) {
-                            console.error(error)
-                        }
-                    })
-                    //probaly should return the newly created data. :P
+    const {commentOwner, parentForum} = commentBody
+    let newlyMadeCommentId;
+    try {
+        const createdComment = await commentModel.create([commentBody])
+        newlyMadeCommentId = createdComment[0]._id
+
+        await userModel.findByIdAndUpdate(commentOwner,
+            {
+                $push: {
+                    userComments: newlyMadeCommentId
                 }
             })
+
+        await forumModel.findByIdAndUpdate(parentForum,
+            {
+                $push: {
+                    comments: newlyMadeCommentId
+                }
+            })
+        return createdComment
+    }catch(error){
+        throw Error(error)
+    }
+
 }
 
 module.exports = {

@@ -11,7 +11,7 @@ router.post('/create', async (req, res) => {
 
     try {
         const createdComment = await commentCreateService(commentBody)
-    //returns null but still works
+
         res.json(sendStandardResponse(200, "Welcome to the Food-side", createdComment))
     } catch(error) {
         res.json({message:"commentController create route",
