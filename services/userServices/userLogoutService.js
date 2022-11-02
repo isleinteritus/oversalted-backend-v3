@@ -1,13 +1,14 @@
 const userModel = require('../../models/userModel.js')
 
-const userLogoutService = async (userId) => {
+//doesn't work. Waiting on session implementation.
+const userLogOutService = async (userId) => {
     try {
         return await userModel.findOne(userId)
     } catch (error) {
-        throw Error("Error while logging out user. Location: userLogoutService")
+        throw Error("Error while logging out user. Location: userLogOutService")
     }
 }
 
 module.exports = {
-    userLogoutService
+    userLogOutService
 }
