@@ -2,8 +2,7 @@ const forumModel = require('../../models/forumModel.js')
 
 const forumUpdateService = async (forumId, forumBody) => {
     try {
-        const updatedBody = await forumModel.findByIdAndUpdate(
-            forumId,
+         await forumModel.findByIdAndUpdate(forumId,
             {
                 ...forumBody
             })

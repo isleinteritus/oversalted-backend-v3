@@ -7,6 +7,7 @@ const commentUpdateService = async (commentId, commentBody) => {
             {
                 ...commentBody
             })
+        return commentModel.findById(commentId)
     }catch(error){
          throw Error(error)
     }
