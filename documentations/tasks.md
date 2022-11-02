@@ -1,17 +1,18 @@
 - [x] port overSalted-backend-v2 to overSalted-Backend-v3 and gut it.
 - [x] put fat controllers on a diet: transfer controller buisness logic to services
 - [x] convert services to async/await with /try/catch blocks in controllers and services
-- [] **IN PROGRESS** reduce services if/else statements to a readable/modular form for ease of testing.
+- [x] reduce services if/else statements to a readable/modular form for ease of testing.
 - [] figure out what to do about index services
 - [] destructure controllerNameBody for greater degree of control of data entering services instead of using the
   spread operator
-- create an abstracted deletedItemReturnMessage function that takes the route url and puts that word into its return 
+- [] create an abstracted deletedItemReturnMessage function that takes the route url and puts that word into its return 
   message thus returning:`"The Kitchen Reaper 86 the [Comment]"` This will replace the current variable in the 
   delete routes called deletedReturnMessage
 
-- [] implement redis for session management
+- [] implement redis for session management IN PROGRESS
 - [] implement nanoid for obscuring users info in session
 - [] implement validation through superstruct
+- [] argon
 - [] update security practices, such as helmet.js
 - [] logging server
 - [] flesh out helmet.js
