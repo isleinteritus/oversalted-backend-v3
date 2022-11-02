@@ -7,8 +7,7 @@ const commentDeleteService = async (commentId) => {
     try {
         const {commentOwner, parentForum} = await commentModel.findById(commentId)
 
-        await commentModel.findByIdAndDelete(
-            commentId)
+        await commentModel.findByIdAndDelete(commentId)
 
         await userModel.findByIdAndUpdate(commentOwner,
             {
@@ -21,7 +20,7 @@ const commentDeleteService = async (commentId) => {
         await forumModel.findByIdAndUpdate(parentForum,
             {
                 $pull: {
-                    comments: {
+                    forumComments: {
                         $in: commentId
                     }
                 }

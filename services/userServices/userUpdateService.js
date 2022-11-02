@@ -2,10 +2,11 @@ const userModel = require('../../models/userModel.js')
 
 const userUpdateService = async (userId, userBody) => {
     try {
-         return await userModel.findByIdAndUpdate(userId,
+         await userModel.findByIdAndUpdate(userId,
              {
                  ...userBody
              })
+         return userModel.findById(userId)
     } catch (error) {
         throw Error("Error while updating user. Location: userUpdateService")
     }

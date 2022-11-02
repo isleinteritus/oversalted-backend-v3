@@ -4,15 +4,17 @@ const forumModel = require('../../models/forumModel.js')
 const tagDeleteService = async (tagId) => {
     const deletedReturnMessage = {deleted: "Tag's 86"}
     try {
+        const {taggedForums} = tagModel.findById(tagId)
         await tagModel.findByIdAndDelete(tagId)
-        await forumModel.updateMany({}, {
-            $pull: {
-                parentTags: {
-                    $in: deletedTag._id
+        await forumModel.updateMany(taggedForums,
+            {
+                $pull: {
+                    parentTags: {
+                        $in: tagId
+                    }
                 }
-            }
-        })
-                    return null
+            })
+        return deletedReturnMessage
     }catch(error) {
         throw Error(error)
     }

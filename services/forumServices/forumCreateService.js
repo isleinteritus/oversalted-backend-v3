@@ -30,7 +30,7 @@ const forumCreateService = async (forumBody) => {
             })
         return createdForum
     } catch (error) {
-        throw new Error(error)
+        throw Error(error)
     }
 }
 module.exports = {
