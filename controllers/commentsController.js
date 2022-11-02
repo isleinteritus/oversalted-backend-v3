@@ -48,7 +48,7 @@ router.put('/:id', async (req, res) => {
 
         res.json(sendStandardResponse(200, "Welcome to the Food-side", updatedComment))
     } catch(error) {
-        res.json({message:"commentController create route",
+        res.json({message:"commentController update route",
             error: error})
     }
 })

@@ -22,12 +22,12 @@ router.post('/create', async (req, res) => {
 
 //login user
 router.post('/login', async (req, res) => {
-    const {userLoginService} = require('../services/userServices/userLoginService.js')
+    const {userLogInService} = require('../services/userServices/userLogInService.js')
     const userId = req.body.id
     const userBody = req.body //email & password
 
     try{
-        const userLoggedIn = await userLoginService(userId, userBody)
+        const userLoggedIn = await userLogInService(userId, userBody)
 
         res.json(sendStandardResponse(200, "You're logged in!", userLoggedIn))
     } catch(error) {
@@ -39,12 +39,12 @@ router.post('/login', async (req, res) => {
 //logout user
 //todo requires sessions to make sense.
 router.post('/logout', async (req, res) => {
-    const {userLogoutService} = require('../services/userServices/userLogoutService.js')
+    const {userLogOutService} = require('../services/userServices/userLogOutService.js')
     const userId  = req.params.id
     const userBody = req.body //this will change to sessions w/ redis
 
     try{
-        const userLoggedOut = await userLogoutService(userId, userBody)
+        const userLoggedOut = await userLogOutService(userId, userBody)
 
         res.json(sendStandardResponse(200, "Bye bye forever", userLoggedOut))
     } catch(error) {
