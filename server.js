@@ -8,6 +8,7 @@ const mongoose = require('mongoose')
 const db = mongoose.connection
 const methodOverride = require('method-override')
 const cors = require('cors')
+const redisSession = require('./middlewares/sessionManagement/redisSession.js')
 
 //controller assignment here\\
 const usersController = require('./controllers/usersController.js')
@@ -29,10 +30,11 @@ db.on("disconnected", ()=> console.log("Your mongodb has disconnected"))
 //Middlewares\\
 app.use(cors())
 app.use(express.json())
-app.use(express.urlencoded({ extended: true}))
+app.use(express.urlencoded({extended: true}))
 //I don't think I need this since the above line is extended to true instead of false
 app.use(methodOverride('_method'))
 
+app.use(redisSession)
 
 app.use('/user', usersController)
 app.use('/forum', forumsController)
