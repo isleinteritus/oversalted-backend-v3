@@ -25,22 +25,23 @@
 - [] pending
 
 
-task related notes, or potential tasks.
+###### task related notes, or potential tasks.
 
 ---
-
-* figure out how to abstract the index services to apply to: ~~Users~~_there is no ability to search for users_,
-   Comments,
-   Forums, and Tags as a whole.
-* reduce services logic into smaller functions. EX: mongoDbServices 
-* Figure out a way to parse only needed data through json. Right now it is a bulk send off. Or just make life fun for frontend parsing json. 
-* when user deletes acct, change all users names on submitted items to an admin called The Kitchen Reaper. A cute
-   way to
-   collect all deleted topics to one thing. Have all names blocked from using this one name combination 
-* The error handling is not indicative of how I want it implemented. More or less place holders until I can work out that. 
-* Side notes, since updating from old versions, make sure to check for all potential deprications;
-mongoose 6.6.5 https://mongoosejs.com/docs/deprecations.html
-* when a user deletes a forum their name is scrubbed away. That's about it. 
+* LTG is to refactor after implementation to reduce all logic to simplified functions for ease of testing. I DO NOT 
+  want to make 3 classes, 10 files, and w/e that function does to do one thing for a user request. How do I test 
+  that? Why do I want to test that? 
+* Abstract the index services to apply to: users, Comments, Forums, and Tags as a whole. .map/.fliter/.pipe?
+* reduce services logic into smaller calls. Service function calls queries folder for specific queries thus database 
+  queries are reduced to the queries folder where further abstraction can take place EX: 
+  mongoDbService. Most likely usage with .filter & .map. 
+* Figure out a way to parse only needed data through json. Right now it is a bulk send off. Or make life fun for 
+  frontend parsing json. 
+* when user deletes acct, change all users names on submitted items to an admin called The Kitchen Reaper. A cute way to collect all deleted topics to one thing. Have all names blocked from using this one name combination 
+* Better error handling. 
+* ~~when a user deletes a forum their name is scrubbed away. That's about it.~~ 
+  * Now how to delete the users naem from comments? 
+    * Now how to delete users name from subcomments? [sub comments are not implemented]
 
 ### Soft notes
 
