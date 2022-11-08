@@ -1,6 +1,6 @@
 // Dependencies \\
 require('dotenv').config()
-const mongoDataBaseConfig = require('./configs/dataBasesConfig.js') //TODO add config logic as needed. Config file made.
+const config = require('./configs/databasesConfig.js') //TODO add config logic as needed. Config file made.
 const APP_PORT = process.env.APP_PORT
 const express = require('express')
 const app = express()
@@ -18,8 +18,8 @@ const commentsController = require('./controllers/commentsController.js')
 
 //DB connection\\
 mongoose.connect(
-    mongoDataBaseConfig.MONGODB_URI,
-    mongoDataBaseConfig.MONGODB_OPTIONS
+	config.MONGODB_URI,
+	config.MONGODB_OPTIONS
 )
 
 // DB checks&&success \\
