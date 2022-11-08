@@ -7,15 +7,15 @@ const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js')
 ///////CREATE/////// //TODO doesn't return json. Creates the forum however it doesn't return the data from the
 // service.At least res.json works. However it does return null.
 router.post ('/create', async (req, res) => {
-    const {forumCreateService} = require('../services/forumServices/forumCreateService.js')
+    const {createForum} = require('../services/forumServices/createForum.js')
     const forumBody = req.body
 
     try {
-        const createdForum = await forumCreateService(forumBody)
+        const forumCreated = await createForum(forumBody)
 
-        res.json(sendStandardResponse(200, "Welcome to the Food-side", createdForum))
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", forumCreated))
     } catch(error) {
-    res.json({message: "forumController create route",
+    res.json({message: "forum Controller create route",
     error: error})
     }
 })
@@ -25,11 +25,11 @@ router.post ('/create', async (req, res) => {
 //  submitted on a recent page or of some other forum?
 //FYI route doesn't work. All I did was a general template of it and its service
 router.get('/index', async (req, res)=> {
-    const {forumIndexService} = require('../services/forumServices/forumIndexService.js')
+    const {indexForums} = require('../services/forumServices/indexForums.js')
     try {
-        const forumsFound = await forumIndexService()
+        const forumsIndexed = await indexForums()
 
-        res.json(sendStandardResponse(200, "Forums Found", forumsFound))
+        res.json(sendStandardResponse(200, "Forums Found", forumsIndexed))
     } catch (error) {
         res.json({message:"forumsController index route",
             error: error})
@@ -40,15 +40,15 @@ router.get('/index', async (req, res)=> {
 //forum id
 router.get('/:id', async (req, res) => {
 //finds specific id and shows it to user
-    const {forumShowService} = require('../services/forumServices/forumShowService.js')
+    const {showForum} = require('../services/forumServices/showForum.js')
     const forumID = req.params.id
 
     try {
-        const foundForum = await forumShowService(forumID)
+        const forumShown = await showForum(forumID)
 
-        res.json(sendStandardResponse(200, "Forum has been located", foundForum))
+        res.json(sendStandardResponse(200, "Forum has been located", forumShown))
     } catch(error) {
-        res.json({message:"forumController show route",
+        res.json({message:"forum Controller show route",
             error: error})
     }
 })
@@ -56,14 +56,14 @@ router.get('/:id', async (req, res) => {
 //UPDATE
 //forum id
 router.put('/:id', async (req,res) => {
-    const {forumUpdateService} = require('../services/forumServices/forumUpdateService.js')
+    const {updateForum} = require('../services/forumServices/updateForum.js')
     const forumID = req.params.id
     const forumBody = req.body
 
     try {
-        const foundForum = await forumUpdateService(forumID, forumBody)
+        const forumUpdated = await updateForum(forumID, forumBody)
 
-        res.json(sendStandardResponse(200, "Forum has been updated", foundForum))
+        res.json(sendStandardResponse(200, "Forum has been updated", forumUpdated))
     } catch(error) {
         res.json({message:"forumController update route",
             error: error})
@@ -77,14 +77,14 @@ router.put('/:id', async (req,res) => {
 //Still working out some loose ends here. Returns error yet delete user still. Not sure how to send the correct
 // json response after user is deleted. Refer to forumDeleteService where logic is handled
 router.delete('/:id', async (req,res) => {
-    const {forumDeleteService} = require('../services/forumServices/forumDeleteService.js')
+    const {deleteForum} = require('../services/forumServices/deleteForum.js')
     const forumID = req.params.id
 
     try {
-        const deleteForum = await forumDeleteService(forumID)
-        res.json(sendStandardResponse(200, "Forum has been located", deleteForum))
+        const forumDeleted = await deleteForum(forumID)
+        res.json(sendStandardResponse(200, "Forum has been located", forumDeleted))
     } catch(error) {
-        res.json({message:"forumController delete route",
+        res.json({message:"forum Controller delete route",
             error: error})
     }
 })

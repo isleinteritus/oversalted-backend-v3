@@ -1,6 +1,6 @@
 const forumModel = require('../../models/forumModel.js')
 
-const forumUpdateService = async (forumId, forumBody) => {
+const updateForum = async (forumId, forumBody) => {
     try {
          await forumModel.findByIdAndUpdate(forumId,
             {
@@ -14,5 +14,5 @@ const forumUpdateService = async (forumId, forumBody) => {
 }
 
 module.exports = {
-    forumUpdateService
+    updateForum
 }

@@ -30,7 +30,7 @@ most logic will be transferred to services to keep with the modular theme.
 controller becomes difficult to test, implement, and update due to each interaction they have. Within the services
 folder is async/await to prevent server crashes via try-catch blocks. Within each try catch block is a broken down
 database interaction of the services needed. The removal of constant if/else statements allow for a greater degree
-of control and testing of the data. We can easily see where each piece is going. forumCreateService.js within
+of control and testing of the data. We can easily see where each piece is going. createForum.js within
 forumServices will give a clear idea of that interaction.
 ---
 #### Technologies, why?

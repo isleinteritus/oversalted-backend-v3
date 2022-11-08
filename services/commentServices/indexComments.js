@@ -2,7 +2,7 @@ const commentModel = require('../../models/commentModel.js')
 
 //TODO So take the forums Id, and collect all related comments of that forum. Index it based on that forum id
 //based on the forum id
-const commentIndexService = async (forumId) => {
+const indexComments = async (forumId) => {
     try{
         const foundComments = await commentModel.find(forumId)
         return foundComments
@@ -13,5 +13,5 @@ const commentIndexService = async (forumId) => {
 }
 
 module.exports = {
-    commentIndexService
+    indexComments
 }
