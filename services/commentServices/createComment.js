@@ -2,7 +2,7 @@ const commentModel = require('../../models/commentModel.js')
 const userModel = require('../../models/userModel.js')
 const forumModel = require('../../models/forumModel.js')
 
-const commentCreateService = async (commentBody) => {
+const createComment = async (commentBody) => {
     const {commentOwner, parentForum} = commentBody
     let newlyMadeCommentId;
     try {
@@ -30,5 +30,5 @@ const commentCreateService = async (commentBody) => {
 }
 
 module.exports = {
-    commentCreateService
+    createComment
 }

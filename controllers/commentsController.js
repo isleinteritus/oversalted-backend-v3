@@ -6,15 +6,15 @@ const {sendStandardResponse} = require('../utils/jsonResponseHelpers.js');
 //ROUTES
 ///////CREATE///////
 router.post('/create', async (req, res) => {
-    const { commentCreateService } = require('../services/commentServices/commentCreateService.js')
+    const { createComment } = require('../services/commentServices/createComment.js')
     const commentBody = req.body
 
     try {
-        const createdComment = await commentCreateService(commentBody)
+        const commentCreated = await createComment(commentBody)
 
-        res.json(sendStandardResponse(200, "Welcome to the Food-side", createdComment))
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", commentCreated))
     } catch(error) {
-        res.json({message:"commentController create route",
+        res.json({message:"comment Controller create route",
             error: error})
     }
 })
@@ -24,14 +24,14 @@ router.post('/create', async (req, res) => {
 // statement says how to do it.
 //As of right now this doesn't work. Will return to it.
 router.get('/index', async (req, res)=> {
-    const { commentIndexService } = require('../services/commentServices/commentIndexService.js')
+    const { indexComments } = require('../services/commentServices/indexComments.js')
     const commentId = req.params.id
     try {
-        const indexComments = await commentIndexService(commentId)
+        const commentsIndexed = await indexComments(commentId)
 
-        res.json(sendStandardResponse(200, "Welcome to the Food-side", indexComments))
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", commentsIndexed))
     } catch(error) {
-        res.json({message:"commentController index route",
+        res.json({message:"comment Controller index route",
             error: error})
     }
 })
@@ -39,16 +39,16 @@ router.get('/index', async (req, res)=> {
 //UPDATE
 //comment id
 router.put('/:id', async (req, res) => {
-    const { commentUpdateService } = require('../services/commentServices/commentUpdateService.js')
+    const { updateComment } = require('../services/commentServices/updateComment.js')
     const commentId = req.params.id
     const commentBody = req.body
 
     try {
-        const updatedComment = await commentUpdateService(commentId, commentBody)
+        const commentUpdated = await updateComment(commentId, commentBody)
 
-        res.json(sendStandardResponse(200, "Welcome to the Food-side", updatedComment))
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", commentUpdated))
     } catch(error) {
-        res.json({message:"commentController update route",
+        res.json({message:"comment Controller update route",
             error: error})
     }
 })
@@ -56,15 +56,15 @@ router.put('/:id', async (req, res) => {
 //DELETE
 //comment id
 router.delete('/:id', async (req,res) => {
-    const { commentDeleteService } = require('../services/commentServices/commentDeleteService.js')
+    const { deleteComment } = require('../services/commentServices/deleteComment.js')
     const commentId = req.params.id
 
     try {
-        const deletedComment = await commentDeleteService(commentId)
+        const commentDeleted = await deleteComment(commentId)
 
-        res.json(sendStandardResponse(200, "Welcome to the Food-side", deletedComment))
+        res.json(sendStandardResponse(200, "Welcome to the Food-side", commentDeleted))
     } catch(error) {
-        res.json({message:"commentController delete route",
+        res.json({message:"comment Controller delete route",
             error: error})
     }
 

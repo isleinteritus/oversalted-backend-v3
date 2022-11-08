@@ -1,7 +1,7 @@
 const forumModel = require('../../models/forumModel.js')
 
 //currently does not work.
-const forumIndexService = async (forumIndex) => {
+const indexForums = async (forumIndex) => {
     try{
         await forumModel.find(forumIndex)
 
@@ -12,5 +12,5 @@ const forumIndexService = async (forumIndex) => {
 }
 
 module.exports = {
-    forumIndexService
+    indexForums
 }

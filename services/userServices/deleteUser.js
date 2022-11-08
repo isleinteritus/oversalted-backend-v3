@@ -5,7 +5,7 @@ const commentModel = require('../../models/commentModel.js')
 //Note: The user may-be deleted however all submissions of the user will be rendered null until I make an account
 // for the namespace: Kitchen Reaper, that will apply all deleted accounts to that accounts handle.
 
-const userDeleteService = async (userId) => {
+const deleteUser = async (userId) => {
     const deletedReturnMessage = {deleted: "user's 86"}
 
     try{
@@ -22,10 +22,10 @@ const userDeleteService = async (userId) => {
                     })
         return null
     } catch(error) {
-        throw Error("Error while deleting user. Location: userDeleteService")
+        throw Error("Error while deleting user. Location: ddeleteUserUser")
     }
 }
 
 module.exports = {
-    userDeleteService
+    deleteUser
 }

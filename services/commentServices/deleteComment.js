@@ -2,7 +2,7 @@ const commentModel = require('../../models/commentModel.js')
 const userModel = require('../../models/userModel.js')
 const forumModel = require('../../models/forumModel.js')
 
-const commentDeleteService = async (commentId) => {
+const deleteComment = async (commentId) => {
     const deletedReturnMessage = {deleted: "Comment's 86"}
     try {
         const {commentOwner, parentForum} = await commentModel.findById(commentId)
@@ -34,5 +34,5 @@ const commentDeleteService = async (commentId) => {
 }
 
 module.exports = {
-    commentDeleteService
+    deleteComment
 }
