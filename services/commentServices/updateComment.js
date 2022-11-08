@@ -1,6 +1,6 @@
 const commentModel = require('../../models/commentModel.js')
 
-const commentUpdateService = async (commentId, commentBody) => {
+const updateComment = async (commentId, commentBody) => {
     try {
         await commentModel.findByIdAndUpdate(
             commentId,
@@ -15,5 +15,5 @@ const commentUpdateService = async (commentId, commentBody) => {
 }
 
 module.exports = {
-    commentUpdateService
+    updateComment
 }

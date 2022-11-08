@@ -1,6 +1,6 @@
 const tagModel = require('../../models/tagModel.js')
 //doesn't work.
-const tagIndexService = async (tagIndex) => {
+const indexTag = async (tagIndex) => {
     try {
         const foundTags = await tagModel.find(tagIndex)
         return foundTags
@@ -11,5 +11,5 @@ const tagIndexService = async (tagIndex) => {
 }
 
 module.exports = {
-    tagIndexService
+    indexTag
 }

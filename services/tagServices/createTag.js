@@ -1,13 +1,13 @@
 const tagModel = require('../../models/tagModel.js')
 
-const tagShowService = async (tagId) => {
+const createTag = async (tagBody) => {
     try {
-        return await tagModel.findById(tagId)
+        return await tagModel.create(tagBody)
     }catch(error) {
         throw Error(error)
     }
 }
 
 module.exports = {
-    tagShowService
+    createTag
 }

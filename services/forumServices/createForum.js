@@ -2,7 +2,7 @@ const forumModel = require('../../models/forumModel.js')
 const userModel = require('../../models/userModel.js')
 const tagModel = require('../../models/tagModel.js')
 
-const forumCreateService = async (forumBody) => {
+const createForum = async (forumBody) => {
     const {forumOwner, parentTags} = forumBody
     let newlyMadeForumId;
     try {
@@ -34,5 +34,5 @@ const forumCreateService = async (forumBody) => {
     }
 }
 module.exports = {
-    forumCreateService
+    createForum
 }

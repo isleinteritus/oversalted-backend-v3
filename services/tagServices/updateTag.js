@@ -1,6 +1,6 @@
 const tagModel = require('../../models/tagModel.js')
 
-const tagUpdateService = async (tagId, tagBody) => {
+const updateTag = async (tagId, tagBody) => {
     try {
         await tagModel.findByIdAndUpdate(
             tagId,
@@ -14,5 +14,5 @@ const tagUpdateService = async (tagId, tagBody) => {
 }
 
 module.exports = {
-    tagUpdateService
+    updateTag
 }
