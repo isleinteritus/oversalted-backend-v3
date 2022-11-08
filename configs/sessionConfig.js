@@ -3,13 +3,6 @@ const {nanoid} = require('nanoid')
 const IN_PROD = process.env.NODE_ENV === 'production'
 
 const sessionConfig = {
-    // cache \\
-
-    REDIS_OPTIONS: {
-        port: +process.env.REDIS_PORT,
-        host: process.env.REDIS_HOST,
-        password: process.env.REDIS_PASSWORD
-    },
 
 // session \\
     SESSION_OPTIONS: {
