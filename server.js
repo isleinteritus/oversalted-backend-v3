@@ -1,6 +1,6 @@
 // Dependencies \\
 require('dotenv').config()
-const mongoDataBaseConfig = require('./configs/dataBasesConfig.js') //TODO add config logic as needed. Config file made.
+const {dataBasesConfig} = require('./configs/dataBasesConfig.js') //TODO add config logic as needed. Config file made.
 const APP_PORT = process.env.APP_PORT
 const express = require('express')
 const app = express()
@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const db = mongoose.connection
 const methodOverride = require('method-override')
 const cors = require('cors')
-const redisSession = require('./middlewares/sessionManagement/redisSession.js')
+const {redisSession} = require('./middlewares/sessionManagement/redisSession.js')
 
 //controller assignment here\\
 const usersController = require('./controllers/usersController.js')
@@ -18,14 +18,15 @@ const commentsController = require('./controllers/commentsController.js')
 
 //DB connection\\
 mongoose.connect(
-    mongoDataBaseConfig.MONGODB_URI,
-    mongoDataBaseConfig.MONGODB_OPTIONS
+    dataBasesConfig.MONGODB_URI,
+    dataBasesConfig.MONGODB_OPTIONS
 )
 
 // DB checks&&success \\
 db.on("error", (err) => console.log(err.message + "Is mongodb not running?"))
 db.on("connected", ()=> console.log("Your mongodb has connected"))
 db.on("disconnected", ()=> console.log("Your mongodb has disconnected"))
+
 
 //Middlewares\\
 app.use(cors())
@@ -35,6 +36,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 
 app.use(redisSession)
+
 
 app.use('/user', usersController)
 app.use('/forum', forumsController)

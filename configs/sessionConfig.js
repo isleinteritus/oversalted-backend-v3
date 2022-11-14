@@ -22,4 +22,6 @@ const sessionConfig = {
         saveUninitialized: false, //if you make a request to the server, and no data is stored to the session then it will not be written to the database.
     }
 }
-module.exports = sessionConfig
+module.exports = {
+    sessionConfig
+}

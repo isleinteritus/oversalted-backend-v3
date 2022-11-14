@@ -1,31 +1,53 @@
-- [x] port overSalted-backend-v2 to overSalted-Backend-v3 and gut it.
-- [x] put fat controllers on a diet: transfer controller buisness logic to services
-- [x] convert services to async/await with /try/catch blocks in controllers and services
-- [x] reduce services if/else statements to a readable/modular form for ease of testing.
-- [] figure out what to do about index services
+## Behold Thy Purgatory of Tasks for Thy Headache
+
+###### Idk what to call this. Implementations? Features? Headaches? 
+
+---
+- [] implement redis for session management IN PROGRESS
+- [] implement nanoid for obscuring users info.
+- [] implement validation through superstruct
+- [] logging server
+- [] implemented casl for role systems
+- [] argon
+- [] error handling
+
+###### General Security
+
+---
+- [] flesh out helmet.js
+- [] using casl bar off everybody from touching the tag delete route. Or remove the route then treat a would-be
+  deleted tag it as a
+  depricated branch with no ability to tag it.
+
+
+###### Modularity Refactor & general refactors
+
+---
+
+- [] destructure controllers into (routes?)
+  contains different items
 - [] destructure controllerNameBody for greater degree of control of data entering services instead of using the
   spread operator
-- [] create an abstracted deletedItemReturnMessage function that takes the route url and puts that word into its return 
-  message thus returning:`"The Kitchen Reaper 86 the [Comment]"` This will replace the current variable in the 
-  delete routes called deletedReturnMessage
+- [] update file name structure. services -> commentServices
+- [] variable cleanup
+- [] make it more _functional_ with the goal of one action one thing. YOU GOT ONE JOB SMALLS.
+  
 
-- [] implement redis for session management IN PROGRESS
-- [] implement nanoid for obscuring users info in session
-- [] implement validation through superstruct
-- [] argon
-- [] update security practices, such as helmet.js
-- [] logging server
-- [] flesh out helmet.js
-- [] error handling
+###### Figure x out
+
+---
+- [] How to do the index services
+- [] create an abstracted deletedItemReturnMessage function that takes the route url and puts that word into its return
+
+###### Wouldn't it be fun?
+
+---
 - [] update json helper function. Maybe.
-- [] implemented casl for role systems
-- [] using casl bar off everybody from touching the tag delete route. Or remove the route then treat a would-be 
-  deleted tag it as a 
-  depricated branch with no ability to tag it.
-- [] pending
+- [] remove depedencies
+- [] message thus returning:`"The Kitchen Reaper 86 the [Comment]"` This will replace the current variable in delete routes called deletedReturnMessage
 
 
-###### task related notes, or potential tasks.
+###### notepad that isn't obsidian.
 
 ---
 * LTG is to refactor after implementation to reduce all logic to simplified functions for ease of testing. I DO NOT 
@@ -39,7 +61,6 @@
   frontend parsing json. 
 * when user deletes acct, change all users names on submitted items to an admin called The Kitchen Reaper. A cute way to collect all deleted topics to one thing. Have all names blocked from using this one name combination 
 * Better error handling. 
-* ~~when a user deletes a forum their name is scrubbed away. That's about it.~~ 
   * Now how to delete the users naem from comments? 
     * Now how to delete users name from subcomments? [sub comments are not implemented]
 
@@ -49,3 +70,11 @@
 2) Abstract the user login/logout services as one. Use the URL as an identifier on which service is used. EX)
    if statement that checks if URL path = login. If true it calls the login function, if false calls the logout.
    Could I abstract that further into one function? Mmn.
+
+### ~Finished~
+
+- [x] port overSalted-backend-v2 to overSalted-Backend-v3 and gut it.
+- [x] put fat controllers on a diet: transfer controller buisness logic to services
+- [x] convert services to async/await with /try/catch blocks in controllers and services
+- [x] reduce services if/else statements to a readable/modular form for ease of testing. 
+- [x] when a user deletes a forum their name is scrubbed away. 
