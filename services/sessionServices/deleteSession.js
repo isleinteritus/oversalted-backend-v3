@@ -2,7 +2,7 @@
 const deleteSession = (variableName) => {
     try {
         const userModel = require('../../models/userModel')
-        const {nanoid} = require('nanoid')
+        
 
         const deleteSession = (userLoggedIn, userSession) => {
             try {

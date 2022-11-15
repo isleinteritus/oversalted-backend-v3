@@ -1,17 +1,24 @@
 //follow users.js line 36 v
 //need login key to generate an id
 //update user with loggin key
-const userModel = require ( '../../models/userModel' )
-const { nanoid } = require ( 'nanoid' )
+const userModel = require( '../../models/userModel' )
+const { sessionKeyGen } = require( '../../utils/sessionKeyGen' )
 
-const createSession = ( user, userSession ) => {
+const createSession = async( user, userSession ) => {
+    const userId = user.id
     try {
-        
-        return userSession.sessionKey = user.sessionKey
+        // const createdKey = await sessionKeyGen()
+        //
+        // await userModel.findByIdAndUpdate( userId, {
+        //     $push: {
+        //         sessionKey: createdKey
+        //     }
+        // } )
+        userSession.sessionKey = userId.sessionKey
         
     }
     catch ( error ) {
-        throw Error ( "Yo createSession derped, but I aint gonna say why" )
+    
     }
 }
 

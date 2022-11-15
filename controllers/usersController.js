@@ -15,8 +15,7 @@ router.post( '/create', async( req, res ) => {
     try {
         
         const createdUser = await createUser( userBody )
-        
-        await createSession( createdUser, userSession )
+        console.log(createdUser)
         
         res.json( sendStandardResponse( 200, 'Welcome to the Food-side', createdUser ) )
     }
@@ -36,11 +35,9 @@ router.post( '/login', async( req, res ) => {
     const userSession = req.session
     
     try {
-        const foundUser = await logInUser( userId )
-        
-        const createdSession = await createSession( foundUser, userSession )
-        
-        res.json( sendStandardResponse( 200, 'You\'re logged in!', foundUser ) )
+        const loggedInUser = await logInUser( userId, userSession )
+        console.log(loggedInUser)
+        res.json( sendStandardResponse( 200, 'You\'re logged in!', loggedInUser ) )
     }
     catch ( error ) {
         res.json( {
