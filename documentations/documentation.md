@@ -8,8 +8,8 @@ Nanoid
 Mongodb
 express
 nodejs
-Argon
-redis(session)
+Argon2id
+redis(session)-ioredis
 superstruct for validation
 ```
 
