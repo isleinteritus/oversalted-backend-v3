@@ -3,12 +3,11 @@
 ###### Implementations, Features, and Headaches. 
 
 ---
-- [] implement redis for session management IN PROGRESS
-- [] implement nanoid for obscuring users info.
+
 - [] implement validation through superstruct
 - [] logging server
 - [] implemented casl for role systems
-- [] argon
+- [] argon2id
 - [] error handling
 
 ###### General Security
@@ -81,4 +80,6 @@
 - [x] put fat controllers on a diet: transfer controller buisness logic to services
 - [x] convert services to async/await with /try/catch blocks in controllers and services
 - [x] reduce services if/else statements to a readable/modular form for ease of testing. 
-- [x] when a user deletes a forum their name is scrubbed away. 
+- [x] when a user deletes a forum their name is scrubbed away.
+- [x] implement redis for session management
+- [x] implement nanoid for obscuring users info.
