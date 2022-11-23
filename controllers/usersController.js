@@ -2,27 +2,22 @@ const express = require( 'express' )
 const router = express.Router()
 const { sendStandardResponse } = require( '../utils/jsonResponseHelpers.js' )
 
-
 //ROUTES
 
 ///////CREATE USER///////
 router.post( '/create', async( req, res ) => {
     const { createUser } = require( '../services/userServices/createUser.js' )
-    const { createSession } = require( '../services/sessionServices/createSession' )
-    const userBody = req.body //users name email password
-    const userSession = req.session
     
     try {
         
-        const createdUser = await createUser( userBody )
-        console.log(createdUser)
+        const createdUser = await createUser( req.body )
         
         res.json( sendStandardResponse( 200, 'Welcome to the Food-side', createdUser ) )
     }
     catch ( error ) {
         res.json( {
             message: 'userController register route',
-            error:   error
+            error: error
         } )
     }
 } )
@@ -30,19 +25,16 @@ router.post( '/create', async( req, res ) => {
 //login user
 router.post( '/login', async( req, res ) => {
     const { logInUser } = require( '../services/userServices/logInUser.js' )
-    const { createSession } = require( '../services/sessionServices/createSession' )
-    const userId = req.body.id
-    const userSession = req.session
     
     try {
-        const loggedInUser = await logInUser( userId, userSession )
-        console.log(loggedInUser)
-        res.json( sendStandardResponse( 200, 'You\'re logged in!', loggedInUser ) )
+        const userLoggedIn = await logInUser( req.body, req.session )
+        
+        res.json( sendStandardResponse( 200, 'You\'re logged in!', userLoggedIn ) )
     }
     catch ( error ) {
         res.json( {
             message: 'user Controller login route',
-            error:   error
+            error: error
         } )
     }
 } )
@@ -51,19 +43,16 @@ router.post( '/login', async( req, res ) => {
 //todo requires sessions to make sense.
 router.post( '/logout', async( req, res ) => {
     const { logOutUser } = require( '../services/userServices/logOutUser.js' )
-    const userId = req.params.id
-    const userBody = req.body //this will change to sessions w/ redis
-    let userSession = req.session
     
     try {
-        const userLoggedOut = await logOutUser( userId, userBody )
+        const userLoggedOut = await logOutUser( req.body, req.session )
         
-        res.json( sendStandardResponse( 200, 'Bye bye forever', userLoggedOut ) )
+        res.json( sendStandardResponse( 200, 'Bye bye', userLoggedOut ) )
     }
     catch ( error ) {
         res.json( {
             message: 'userController logout route',
-            error:   error
+            error: error
         } )
     }
     
@@ -74,17 +63,16 @@ router.post( '/logout', async( req, res ) => {
 router.get( '/:id', async( req, res ) => {
     //finds specific id and shows it to user
     const { showUser } = require( '../services/userServices/showUser.js' )
-    const userId = req.params.id
     
     try {
-        const foundUser = await showUser( userId )
+        const foundUser = await showUser( req.params.id )
         
         res.json( sendStandardResponse( 200, 'User has been located', foundUser ) )
     }
     catch ( error ) {
         res.json( {
             message: 'userController show route',
-            error:   error
+            error: error
         } )
     }
 } )
@@ -93,18 +81,16 @@ router.get( '/:id', async( req, res ) => {
 //user id
 router.put( '/:id', async( req, res ) => {
     const { updateUser } = require( '../services/userServices/updateUser.js' )
-    const userId = req.params.id //users name email password & id
-    const userBody = req.body
     
     try {
-        const updatedUser = await updateUser( userId, userBody )
+        const updatedUser = await updateUser( req.params.id, req.body, req.session )
         
         res.json( sendStandardResponse( 200, 'User has been updated', updatedUser ) )
     }
     catch ( error ) {
         res.json( {
             message: 'userController update route',
-            error:   error
+            error: error
         } )
     }
 } )
@@ -116,17 +102,16 @@ router.put( '/:id', async( req, res ) => {
 // services/userDeleteServices.js
 router.delete( '/:id', async( req, res ) => {
     const { deleteUser } = require( '../services/userServices/deleteUser.js' )
-    const userId = req.params.id //users ID
     
     try {
-        const userDeleted = await deleteUser( userId )
+        const userDeleted = await deleteUser( req.params.id, req.session )
         
         res.json( sendStandardResponse( 200, 'The Kitchen Death-God takes another', userDeleted ) )
     }
     catch ( error ) {
         res.json( {
             message: 'userController delete route',
-            error:   error
+            error: error
         } )
     }
 } )

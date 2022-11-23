@@ -1,13 +1,13 @@
-const forumModel = require ( '../../models/forumModel.js' )
+const forumModel = require( '../../models/forumModel.js' )
 
 //currently does not work.
-const indexForums = async ( forumIndex ) => {
+const indexForums = async( forumIndex ) => {
     try {
-        await forumModel.find ( forumIndex )
+        await forumModel.find( forumIndex )
         
     }
     catch ( error ) {
-        throw Error ( error )
+        throw Error( error )
         
     }
 }

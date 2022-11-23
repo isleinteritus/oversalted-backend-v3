@@ -1,8 +1,8 @@
-const { nanoid } = require('nanoid/async')
+const { nanoid } = require( 'nanoid/async' )
 
 //generates a 21 character string.
 //passing in a number will change the default character to that number of characters.
-const sessionKeyGen = async () => {
+const sessionKeyGen = async() => {
     return await nanoid()
 }
 
