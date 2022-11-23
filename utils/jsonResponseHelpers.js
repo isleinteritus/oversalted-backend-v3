@@ -1,9 +1,9 @@
 module.exports = {
-    sendStandardResponse(status, message, data){
+    sendStandardResponse( status, message, data ) {
         return {
-            status : status,
-            message : message,
-            data : data
+            status: status,
+            message: message,
+            data: data
         }
     }
 }

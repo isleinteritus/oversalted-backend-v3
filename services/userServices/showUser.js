@@ -1,10 +1,11 @@
-const userModel = require('../../models/userModel.js')
+const userModel = require( '../../models/userModel.js' )
 
-const showUser = async (userId) => {
+const showUser = async( userId ) => {
     try {
-        return await userModel.findById(userId)
-    } catch (error) {
-        throw Error("Error while fetching user. Location: sshowUserUser")
+        return await userModel.findById( userId )
+    }
+    catch ( error ) {
+        throw Error( 'Error while fetching user. Location: sshowUserUser' )
     }
 }
 
