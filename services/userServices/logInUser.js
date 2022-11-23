@@ -1,16 +1,15 @@
 const userModel = require( '../../models/userModel.js' )
-const { sessionKeyGen } = require( '../../utils/sessionKeyGen' )
+const { createSession } = require( '../sessionServices/createSession' )
 
 //doesn't work. Waiting on session implementation.
 //may not need userBody due to userId being taken and found then passed to the next function
-const logInUser = async( userId, userSession ) => {
+const logInUser = async( userBody, userSession ) => {
     try {
-        const foundUser = await userModel.findOne( userId )
-        await userModel.updateOne( foundUser, {
-            sessionKey: sessionKeyGen()
-        } )
         
-        return foundUser
+        const foundUser = await userModel.findOne( userBody )
+        
+        return await createSession( foundUser, userSession )
+        
     }
     catch ( error ) {
         throw Error( 'Error while logging in user. Location:userLogInService' )

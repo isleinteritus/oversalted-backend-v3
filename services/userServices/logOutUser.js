@@ -1,11 +1,15 @@
-const userModel = require('../../models/userModel.js')
+const userModel = require( '../../models/userModel.js' )
+const { deleteSession } = require( '../sessionServices/deleteSession' )
 
 //doesn't work. Waiting on session implementation.
-const logOutUser = async (userId) => {
+const logOutUser = async( userBody, userSession ) => {
     try {
-        return await userModel.findOne(userId)
-    } catch (error) {
-        throw Error("Error while logging out user. Location: llogOutUser.js")
+        const foundUser = await userModel.findOne( userBody )
+        await deleteSession( foundUser, userSession )
+        return { message: 'User logged out' }
+    }
+    catch ( error ) {
+        throw Error( 'Error while logging out user. Location: llogOutUser.js' )
     }
 }
 
