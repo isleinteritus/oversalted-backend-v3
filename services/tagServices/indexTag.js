@@ -1,13 +1,14 @@
-const tagModel = require('../../models/tagModel.js')
+const tagModel = require( '../../models/tagModel.js' )
 //doesn't work.
-const indexTag = async (tagIndex) => {
+const indexTag = async( tagIndex ) => {
     try {
-        const foundTags = await tagModel.find(tagIndex)
+        const foundTags = await tagModel.find( tagIndex )
         return foundTags
-    }catch(error){
-        throw Error(error)
     }
-
+    catch ( error ) {
+        throw Error( error )
+    }
+    
 }
 
 module.exports = {
