@@ -1,21 +1,22 @@
-//reference users.js line 66 v
-const deleteSession = (variableName) => {
+const userModel = require( '../../models/userModel' )
+const deleteSession = async( foundUser, userSession ) => {
+    const {
+        id,
+        sessionKey
+    } = foundUser
+    
     try {
-        const userModel = require('../../models/userModel')
-        
-
-        const deleteSession = (userLoggedIn, userSession) => {
-            try {
-
-                return userSession.sessionKey = userLoggedIn.sessionKey
-
-            }catch (error) {
-
+        userSession.destroy()
+        const test = await userModel.findByIdAndUpdate( id, {
+            $pullAll: {
+                sessionKey
             }
-        }
-
-    }catch (error) {
-
+        } )
+        
+        return test
+    }
+    catch ( error ) {
+    
     }
 }
 module.exports = {

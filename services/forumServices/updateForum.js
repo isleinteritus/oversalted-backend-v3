@@ -1,15 +1,19 @@
-const forumModel = require('../../models/forumModel.js')
+const forumModel = require( '../../models/forumModel.js' )
+const { regenerateSession } = require( '../sessionServices/regenerateSession' )
 
-const updateForum = async (forumId, forumBody) => {
+const updateForum = async( forumId, forumBody, userSession ) => {
     try {
-         await forumModel.findByIdAndUpdate(forumId,
+        await forumModel.findByIdAndUpdate( forumId,
             {
                 ...forumBody
-            })
-        return forumModel.findById(forumId)
-    }catch(error) {
-        throw Error(error)
-
+            }
+        )
+        await regenerateSession( userSession )
+        return forumModel.findById( forumId )
+    }
+    catch ( error ) {
+        throw Error( error )
+        
     }
 }
 

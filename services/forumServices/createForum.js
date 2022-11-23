@@ -1,8 +1,9 @@
 const forumModel = require( '../../models/forumModel.js' )
 const userModel = require( '../../models/userModel.js' )
 const tagModel = require( '../../models/tagModel.js' )
+const { regenerateSession } = require( '../sessionServices/regenerateSession' )
 
-const createForum = async( forumBody ) => {
+const createForum = async( forumBody, userSession ) => {
     const {
         forumOwner,
         parentTags
@@ -29,6 +30,7 @@ const createForum = async( forumBody ) => {
                 }
             }
         } )
+        await regenerateSession( userSession )
         return createdForum
     }
     catch ( error ) {
