@@ -1,6 +1,6 @@
 ## Behold Thy Purgatory of Tasks for Thy Headache
 
-###### Idk what to call this. Implementations? Features? Headaches? 
+###### Implementations, Features, and Headaches. 
 
 ---
 - [] implement redis for session management IN PROGRESS
@@ -25,12 +25,16 @@
 ---
 
 - [] destructure controllers into (routes?)
-  contains different items
-- [] destructure controllerNameBody for greater degree of control of data entering services instead of using the
-  spread operator
+- [] expand route naming to take the ID of the user that wants to: logout, delete. So we have to do one less database hit to find the user of the userBody that is sent. 
+- [] destructure controllerNameBody for greater degree of control of data entering services instead of using the spread operator
 - [] update file name structure. services -> commentServices
+- [] Small task: when user logs in the sessionKey is not returned, yet it is added to the database. Json returns to early. Need to tinker with that.
+- [] userModel, sessionKey is set as an array. This causes sessionKeys to build up different keys. I don't want to 
+  leave a trail to the user based on their session. However, with mongoose, I can use $pullAll as a way to remove 
+  all keys if muiltiple keys is added. Not a fan even if it works.  
 - [] variable cleanup
 - [] make it more _functional_ with the goal of one action one thing. YOU GOT ONE JOB SMALLS.
+- [] flesh out sessions for better tracking
   
 
 ###### Figure x out
